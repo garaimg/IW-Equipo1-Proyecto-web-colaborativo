@@ -1,5 +1,5 @@
 from django.contrib import admin
-from appDeustronicComponents.models import Cliente, Producto, Componente, PedidoProducto
+from .models import Cliente, Producto, Componente, PedidoProducto
 
 # Register your models here.
 admin.site.register(Cliente)
