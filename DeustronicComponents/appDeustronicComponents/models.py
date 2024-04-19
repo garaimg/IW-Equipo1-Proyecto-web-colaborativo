@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Cliente(models.Model):
-    cif = models.CharField(max_length=100, unique=True)
+    cif = models.CharField(max_length=100, primary_key=True)
     nombre_empresa = models.CharField(max_length=100)
     direccion = models.CharField(max_length=255)
     telefono = models.IntegerField(max_length=15)
@@ -23,7 +23,7 @@ class Cliente(models.Model):
 
 
 class Pedido(models.Model):
-    cod_ref_ped = models.CharField(max_length=100, unique=True)
+    cod_ref_ped = models.CharField(max_length=100, primary_key=True)
     fecha = models.DateField()
     precio_total = models.DecimalField(max_digits=10, decimal_places=2)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
@@ -40,7 +40,7 @@ class Pedido(models.Model):
 
 
 class Componente(models.Model):
-    cod_ref_comp = models.CharField(max_length=100, unique=True)
+    cod_ref_comp = models.CharField(max_length=100, primary_key=True)
     modelo = models.CharField(max_length=100)
     marca = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
@@ -56,7 +56,7 @@ class Componente(models.Model):
 
 
 class Producto(models.Model):
-    cod_ref_prod = models.CharField(max_length=100, unique=True)
+    cod_ref_prod = models.CharField(max_length=100, primary_key=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
