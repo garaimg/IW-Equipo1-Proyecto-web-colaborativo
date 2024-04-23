@@ -1,5 +1,3 @@
-from django.db import models
-
 # Create your models here.
 from django.db import models
 
@@ -8,7 +6,7 @@ class Cliente(models.Model):
     cif = models.CharField(max_length=100, primary_key=True)
     nombre_empresa = models.CharField(max_length=100)
     direccion = models.CharField(max_length=255)
-    telefono = models.IntegerField(max_length=15)
+    telefono = models.IntegerField()
     email = models.EmailField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

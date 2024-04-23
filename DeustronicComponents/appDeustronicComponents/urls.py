@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from .views import lista_clientes
+
 # from .views import
 
 urlpatterns = [
-
+    path('/', views.lista_clientes, name='index'),
 ]
