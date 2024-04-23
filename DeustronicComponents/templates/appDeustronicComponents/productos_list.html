@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block titulo %}Productos - Deustronic Components S.L.{% endblock %}
+{% block contenido %}
+    <h2>Listado de Productos</h2>
+    <ul>
+        {% for producto in productos %}
+            <li><a href="{% url 'detalle_producto' producto.pk %}">{{ producto.nombre }}</a></li>
+        {% empty %}
+            <li>No hay productos disponibles</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
