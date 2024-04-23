@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<<<<<<< HEAD
     <head>
         <meta charset="UTF-8">
         <meta name="viewport"
@@ -23,4 +24,28 @@
             {% block contenido %}{% endblock %}
         </div>
     </body>
+=======
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block titulo %}Deustronic Components S.L.{% endblock %}</title>
+</head>
+<body>
+    <div id="content">
+        <h1>Deustronic Components S.L.</h1>
+    <h2>Menu</h2>
+    <ul>
+        <li><a href="appDeustronicComponents/productos_list.html">Productos</a></li>
+        <li><a href="appDeustronicComponents/pedidos.html">Pedidos</a></li>
+        <li><a href="appDeustronicComponents/clientes.html">Clientes</a></li>
+        <li><a href="appDeustronicComponents/componentes.html">Componentes de productos</a></li>
+    </ul>
+        {% block contenido %}{% endblock %}
+    </div>
+</body>
+>>>>>>> 68323715be942581604d985bef05fb001e787a10
 </html>
