@@ -1,10 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block titulo %}Deustronic Components S.L.{% endblock %}</title>
 </head>
 <body>
-
+    <div id="content">
+        <h1>Deustronic Components S.L.</h1>
+    <h2>Menu</h2>
+    <ul>
+        <li><a href="operaciones/productos.html">Productos</a></li>
+        <li><a href="operaciones/pedidos.html">Pedidos</a></li>
+        <li><a href="operaciones/clientes.html">Clientes</a></li>
+        <li><a href="operaciones/componentes.html">Componentes de productos</a></li>
+    </ul>
+        {% block contenido %}{% endblock %}
+    </div>
 </body>
 </html>
