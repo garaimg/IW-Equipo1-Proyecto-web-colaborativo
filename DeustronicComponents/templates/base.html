@@ -1,26 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Deustronic Components S.L.{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>{% block titulo %}Deustronic Components S.L.{% endblock %}</title>
 </head>
 <body>
+    <header>
+        <div class="logo-container">
+            <img src="{% static 'images/logo.jpg' %}" alt="Deustronic Components Logo">
+            <h1>Deustronic Components S.L.</h1>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'lista_productos' %}">Productos</a></li>
+            <li><a href="{% url 'crear_producto' %}">Crear Producto</a></li>
+            <li><a href="appDeustronicComponents/pedidos.html">Pedidos</a></li>
+            <li><a href="appDeustronicComponents/clientes.html">Clientes</a></li>
+            <li><a href="appDeustronicComponents/componentes.html">Componentes de productos</a></li>
+        </ul>
+    </nav>
     <div id="content">
-        <h1>Deustronic Components S.L.</h1>
-    <h2>Menu</h2>
-    <ul>
-        <li><a href="{% url 'lista_productos' %}">Productos</a></li>
-        <li><a href="{% url 'crear_producto' %}">Crear Producto</a></li>
-        <li><a href="appDeustronicComponents/pedidos.html">Pedidos</a></li>
-        <li><a href="appDeustronicComponents/clientes.html">Clientes</a></li>
-        <li><a href="appDeustronicComponents/componentes.html">Componentes de productos</a></li>
-    </ul>
-        {% block contenido %}{% endblock %}
+        <section class="main-section">
+            <h2>Bienvenido a Deustronic Components S.L.</h2>
+            <p>Encuentra todo lo que necesitas para tus proyectos de electrónica.</p>
+        </section>
     </div>
+    <footer>
+        &copy; 2024 Deustronic Components S.L. | Todos los derechos reservados
+    </footer>
 </body>
 </html>
