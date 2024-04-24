@@ -6,6 +6,7 @@ from .forms import ProductoForm
 
 
 # Create your views here.
+# UpdateView parecido a esto
 class ProductoCreateView(View):
 
     def get(self, request):
@@ -20,6 +21,11 @@ class ProductoCreateView(View):
             return redirect(
                 'index_productos')
         return render(request, 'appDeustronicComponents/producto_create.html', {'formulario': formulario})
+
+
+class IndexView(View):
+    def get(self, request):
+        return render(request, 'appDeustronicComponents/index.html')
 
 
 class ProductoListView(ListView):
