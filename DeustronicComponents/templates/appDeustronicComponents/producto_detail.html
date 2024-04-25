@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block titulo %}Detalles del Producto - Deustronic Components S.L.{% endblock %}
 {% block contenido %}
-    <h2>Detalles del Producto</h2>
-    <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
-    <p><strong>Referencia:</strong> {{ producto.referencia }}</p>
-    <p><strong>Precio:</strong> {{ producto.precio }}</p>
-    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-    <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+<h2>Detalles del Producto</h2>
+<p><strong>Código de referencia:</strong> {{ producto.cod_ref_prod }}</p>
+<p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+<p><strong>Precio:</strong> {{ producto.precio }}</p>
+<p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+<p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+<p><strong>Componente:</strong> {{ producto.componente }}</p>
 {% endblock %}

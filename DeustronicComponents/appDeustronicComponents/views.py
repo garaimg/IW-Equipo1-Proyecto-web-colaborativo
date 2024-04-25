@@ -19,7 +19,7 @@ class ProductoCreateView(View):
         if formulario.is_valid():
             formulario.save()
             return redirect(
-                'index_productos')
+                'index')
         return render(request, 'appDeustronicComponents/producto_create.html', {'formulario': formulario})
 
 
