@@ -4,8 +4,7 @@
     <h2>Componentes del Producto "{{ producto.nombre }}"</h2>
     <ul>
         {% for componente in componentes %}
-            <li>{{ componente.modelo }} - {{ componente.marca }}</li>
-            <li><a href="{% url 'detalle_componente' componente.pk %}">Ver detalles del componente</a></li>
+            <li><a href="{% url 'detalle_componente' componente.pk %}">{{ componente.modelo }} - {{ componente.marca }}</a> </li>
         {% empty %}
             <li>No hay componentes asociados a este producto.</li>
         {% endfor %}
