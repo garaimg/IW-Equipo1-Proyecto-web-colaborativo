@@ -39,6 +39,16 @@ class ProductoDetailView(DetailView):
     template_name = 'appDeustronicComponents/producto_detail.html'
     context_object_name = 'producto'
 
+    def get_queryset(self):
+        return Producto.objects.filter(pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        producto = self.get_object()
+        componentes = producto.componente.all()
+        context['componentes'] = componentes
+        return context
+
 
 class ComponenteListView(ListView):
     model = Componente
@@ -50,19 +60,3 @@ class ComponenteDetailView(DetailView):
     model = Componente
     template_name = 'appDeustronicComponents/componente_detail.html'
     context_object_name = 'componente'
-
-
-class ComponentesProductoView(DetailView):
-    model = Producto
-    template_name = 'appDeustronicComponents/componentes_producto.html'
-    context_object_name = 'producto'
-
-    def get_queryset(self):
-        return Producto.objects.filter(pk=self.kwargs['pk'])
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        producto = self.get_object()
-        componentes = producto.componente.all()
-        context['componentes'] = componentes
-        return context

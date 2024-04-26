@@ -16,8 +16,7 @@ Including another URLconf
 """
 from django.urls import path
 from .views import ProductoCreateView, ProductoListView, ProductoDetailView, IndexView, ComponenteListView, \
-    ComponenteDetailView, ComponentesProductoView
-
+    ComponenteDetailView
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('producto/create/', ProductoCreateView.as_view(), name='crear_producto'),
@@ -25,5 +24,4 @@ urlpatterns = [
     path('producto/<int:pk>/', ProductoDetailView.as_view(), name='detalle_producto'),
     path('componentes/', ComponenteListView.as_view(), name='lista_componentes'),
     path('componente/<str:pk>', ComponenteDetailView.as_view(), name='detalle_componente'),
-    path('producto/<int:pk>/componentes/', ComponentesProductoView.as_view(), name='ver_componentes_producto'),
 ]
