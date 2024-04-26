@@ -8,13 +8,5 @@
     <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
     <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
     <p><strong>Componentes:</strong></p>
-    <ul>
-        {% if componentes %}
-            {% for componente in componentes %}
-                <li>{{ componente.nombre }}</li>
-            {% endfor %}
-        {% else %}
-            <li>No hay componentes asociados a este producto.</li>
-        {% endif %}
-    </ul>
+    <p><a href="{% url 'ver_componentes_producto' producto.pk %}">Ver componentes</a></p>
 {% endblock %}
