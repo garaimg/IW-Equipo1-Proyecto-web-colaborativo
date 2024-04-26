@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView, DetailView
 from .models import Producto, Componente
@@ -38,6 +38,16 @@ class ProductoDetailView(DetailView):
     model = Producto
     template_name = 'appDeustronicComponents/producto_detail.html'
     context_object_name = 'producto'
+
+    def get_queryset(self):
+        producto = get_object_or_404(Producto, pk=self.kwargs['pk'])
+        return producto.componente.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        producto = self.get_object()
+        context['componentes'] = producto.componente.all()
+        return context
 
 
 class ComponenteListView(ListView):
