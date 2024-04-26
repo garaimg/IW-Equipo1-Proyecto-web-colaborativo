@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block titulo %}Detalles del Componente - Deustronic Components S.L.{% endblock %}
+{% block contenido %}
+    <h2>Detalles del Componente</h2>
+    <p><strong>Código de referencia:</strong> {{ componente.cod_ref_comp }}</p>
+    <p><strong>Modelo:</strong> {{ componente.modelo }}</p>
+    <p><strong>Marca:</strong> {{ componente.marca }}</p>
+{% endblock %}

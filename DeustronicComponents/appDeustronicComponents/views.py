@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
-from .models import Producto
+from .models import Producto, Componente
 from .forms import ProductoForm
 
 
@@ -38,3 +38,15 @@ class ProductoDetailView(DetailView):
     model = Producto
     template_name = 'appDeustronicComponents/producto_detail.html'
     context_object_name = 'producto'
+
+
+class ComponenteListView(ListView):
+    model = Componente
+    template_name = 'appDeustronicComponents/componentes_list.html'
+    context_object_name = 'componentes'
+
+
+class ComponenteDetailView(DetailView):
+    model = Componente
+    template_name = 'appDeustronicComponents/componente_detail.html'
+    context_object_name = 'componente'
