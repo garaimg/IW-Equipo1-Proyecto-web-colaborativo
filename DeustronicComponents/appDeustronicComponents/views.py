@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Producto, Componente
-from .forms import ProductoForm
-
+from .forms import ProductoForm, ComponenteForm
 
 # Create your views here.
 # UpdateView parecido a esto
@@ -48,6 +47,23 @@ class ProductoDetailView(DetailView):
         componentes = producto.componente.all()
         context['componentes'] = componentes
         return context
+
+
+class ComponenteCreateView(View):
+
+    def get(self, request):
+        formulario = ComponenteForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/componente_create.html', context)
+
+    def post(self, request):
+        formulario = ComponenteForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(
+                'index')
+        return render(request, 'appDeustronicComponents/componente_create.html', {'formulario': formulario})
+
 
 
 class ComponenteListView(ListView):
