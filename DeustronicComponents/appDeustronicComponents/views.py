@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Producto, Componente
-from .forms import ProductoForm, ComponenteForm
+from .forms import ProductoForm, ComponenteForm, ClienteForm
 
 # Create your views here.
 # UpdateView parecido a esto
@@ -76,3 +76,24 @@ class ComponenteDetailView(DetailView):
     model = Componente
     template_name = 'appDeustronicComponents/componente_detail.html'
     context_object_name = 'componente'
+
+
+class ClienteCreateView(View):
+
+    def get(self, request):
+        formulario = ClienteForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/cliente_create.html', context)
+
+    def post(self, request):
+        formulario = ClienteForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(
+                'index')
+        return render(request, 'appDeustronicComponents/cliente_create.html', {'formulario': formulario})
+
+
+
+#AÑADIR A TODAS LAS VIEWS UNA URL A LA QUE VOLVER. Ejm:
+#   success_url = reverse_lazy('productos_lista')

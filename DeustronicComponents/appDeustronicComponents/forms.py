@@ -1,5 +1,5 @@
 from django import forms
-from .models import Producto, Componente
+from .models import Producto, Componente, Cliente
 
 
 class ProductoForm(forms.ModelForm):
@@ -11,4 +11,10 @@ class ProductoForm(forms.ModelForm):
 class ComponenteForm(forms.ModelForm):
     class Meta:
         model = Componente
+        fields = '__all__'
+
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
         fields = '__all__'
