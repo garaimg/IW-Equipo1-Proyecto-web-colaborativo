@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Lista de Pedidos{% endblock %}
-{% block content %}
+{% block titulo %}Lista de Pedidos{% endblock %}
+{% block contenido %}
     <h1>Lista de Pedidos</h1>
     <ul>
         {% for pedido in pedidos %}
             <li><a href="{% url 'detalle_pedido' pedido.pk %}">{{ pedido.cod_ref_ped }}</a>
-                <a href="{% url 'actualizar_pedido' pk=pedido.pk %}">Actualizar pedido</a></li>
+                <a href="{% url 'actualizar_pedido' pedido.pk %}">Actualizar pedido</a></li>
         {% empty %}
             <li>No hay pedidos.</li>
         {% endfor %}
