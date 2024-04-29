@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path
 from .views import ProductoCreateView, ProductoListView, ProductoDetailView, IndexView, ComponenteListView, \
     ComponenteDetailView, ComponenteCreateView, ClienteCreateView, ProductoDeleteView, ClienteListView, \
-    ClienteDetailView
+    ClienteDetailView, PedidoUpdateView, PedidoDetailView, PedidoListView, PedidoCreateView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -31,4 +31,8 @@ urlpatterns = [
     path('cliente/create/', ClienteCreateView.as_view(), name='crear_cliente'),
     path('cliente/', ClienteListView.as_view(), name='lista_clientes'),
     path('cliente/<int:pk>', ClienteDetailView.as_view(), name='detalle_cliente'),
+    path('pedido/create/', PedidoCreateView.as_view(), name='crear_pedido'),
+    path('pedidos/', PedidoListView.as_view(), name='lista_pedidos'),
+    path('pedido/<str:pk>/', PedidoDetailView.as_view(), name='detalle_pedido'),
+    path('pedido/<str:pk>/update/', PedidoUpdateView.as_view(), name='actualizar_pedido'),
 ]

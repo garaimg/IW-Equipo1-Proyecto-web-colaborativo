@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Producto, Componente, Cliente
-from .forms import ProductoForm, ComponenteForm, ClienteForm
+from .models import Producto, Componente, Cliente, Pedido
+from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm
 
 
 # Create your views here.
@@ -112,3 +112,73 @@ class ClienteDetailView(DetailView):
     model = Cliente
     template_name = 'appDeustronicComponents/cliente_detail.html'
     context_object_name = 'cliente'
+
+
+# class ClienteUpdateView(View):
+#
+#     def get(self, request, pk):
+#         cliente = Cliente.objects.get(pk=pk)
+#         formulario = ClienteForm(instance=cliente)
+#         context = {'formulario': formulario}
+#         return render(request, 'appDeustronicComponents/cliente_update.html', context)
+#
+#     def post(self, request, pk):
+#         cliente = Cliente.objects.get(pk=pk)
+#         formulario = ClienteForm(data=request.POST, instance=cliente)
+#         if formulario.is_valid():
+#             formulario.save()
+#             return redirect('index')
+#         return render(request, 'appDeustronicComponents/cliente_update.html', {'formulario': formulario})
+
+class PedidoListView(ListView):
+    model = Pedido
+    template_name = 'appDeustronicComponents/pedidos_list.html'
+    context_object_name = 'pedidos'
+
+
+class PedidoDetailView(DetailView):
+    model = Pedido
+    template_name = 'appDeustronicComponents/pedido_detail.html'
+    context_object_name = 'pedido'
+
+
+class PedidoCreateView(View):
+    def get(self, request):
+        formulario = PedidoForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/pedido_create.html', context)
+
+    def post(self, request):
+        formulario = PedidoForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('index')
+        return render(request, 'appDeustronicComponents/pedido_create.html', {'formulario': formulario})
+
+
+class PedidoUpdateView(UpdateView):
+    model = Pedido
+    form_class = PedidoForm
+    template_name = 'appDeustronicComponents/pedido_update.html'
+    success_url = reverse_lazy('index')
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        pedido = get_object_or_404(Pedido, pk=pk)
+        formulario = PedidoForm(instance=pedido)
+        context = {
+            'formulario': formulario,
+            'pedido': pedido
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        pedido = get_object_or_404(Pedido, pk=pk)
+        formulario = PedidoForm(request.POST, instance=pedido)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('detalle_pedido', pk=pedido.pk)
+        else:
+            formulario = PedidoForm(instance=pedido)
+        return render(request, self.template_name, {'formulario': formulario})
