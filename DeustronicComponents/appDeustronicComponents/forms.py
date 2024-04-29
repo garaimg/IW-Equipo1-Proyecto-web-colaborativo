@@ -24,3 +24,9 @@ class PedidoForm(forms.ModelForm):
     class Meta:
         model = Pedido
         fields = ['cod_ref_ped', 'fecha', 'cliente']
+
+
+class PedidoFormUpdate(forms.ModelForm):
+    class Meta:
+        model = Pedido
+        fields = ['fecha', 'cliente']

@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido
-from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm
+from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate
 
 
 # Create your views here.
@@ -158,14 +158,14 @@ class PedidoCreateView(View):
 
 class PedidoUpdateView(UpdateView):
     model = Pedido
-    form_class = PedidoForm
+    form_class = PedidoFormUpdate
     template_name = 'appDeustronicComponents/pedido_update.html'
     success_url = reverse_lazy('index')
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         pedido = get_object_or_404(Pedido, pk=pk)
-        formulario = PedidoForm(instance=pedido)
+        formulario = PedidoFormUpdate(instance=pedido)
         context = {
             'formulario': formulario,
             'pedido': pedido
@@ -175,10 +175,9 @@ class PedidoUpdateView(UpdateView):
     def post(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         pedido = get_object_or_404(Pedido, pk=pk)
-        formulario = PedidoForm(request.POST, instance=pedido)
+        formulario = PedidoFormUpdate(request.POST, instance=pedido)
         if formulario.is_valid():
             formulario.save()
             return redirect('detalle_pedido', pk=pedido.pk)
         else:
-            formulario = PedidoForm(instance=pedido)
-        return render(request, self.template_name, {'formulario': formulario})
+            return render(request, self.template_name, {'formulario': formulario})
