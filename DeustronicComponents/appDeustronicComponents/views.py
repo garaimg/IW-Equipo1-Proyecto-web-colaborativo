@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido
-from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate
+from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate
 
 
 # Create your views here.
@@ -49,6 +49,32 @@ class ProductoDetailView(DetailView):
         componentes = producto.componente.all()
         context['componentes'] = componentes
         return context
+
+class ProductoUpdateView(UpdateView):
+    model = Producto
+    form_class = ProductoFormUpdate
+    template_name = 'appDeustronicComponents/producto_update.html'
+    success_url = reverse_lazy('index')
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        producto = get_object_or_404(Producto, pk=pk)
+        formulario = ProductoFormUpdate(instance=producto)
+        context = {
+            'formulario': formulario,
+            'producto': producto
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        producto = get_object_or_404(Producto, pk=pk)
+        formulario = ProductoFormUpdate(request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('detalle_producto', pk=producto.pk)
+        else:
+            return render(request, self.template_name, {'formulario': formulario})
 
 
 class ComponenteCreateView(View):

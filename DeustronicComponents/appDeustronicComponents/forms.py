@@ -8,6 +8,11 @@ class ProductoForm(forms.ModelForm):
         fields = '__all__'
 
 
+class ProductoFormUpdate(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'precio', 'descripcion', 'categoria']
+
 class ComponenteForm(forms.ModelForm):
     class Meta:
         model = Componente
