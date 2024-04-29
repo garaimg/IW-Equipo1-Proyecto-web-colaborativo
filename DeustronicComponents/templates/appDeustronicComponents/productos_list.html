@@ -4,7 +4,8 @@
     <h2>Listado de Productos</h2>
     <ul>
         {% for producto in productos %}
-            <li><a href="{% url 'detalle_producto' producto.pk %}">{{ producto.nombre }}</a></li>
+            <li><a href="{% url 'detalle_producto' producto.pk %}">{{ producto.nombre }}</a>
+                <a href="{% url 'eliminar_producto' pk=producto.pk %}">Eliminar Producto</a></li>
         {% empty %}
             <li>No hay productos disponibles</li>
         {% endfor %}
