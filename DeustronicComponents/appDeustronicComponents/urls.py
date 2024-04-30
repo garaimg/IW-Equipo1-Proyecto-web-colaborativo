@@ -17,7 +17,8 @@ Including another URLconf
 from django.urls import path
 from .views import ProductoCreateView, ProductoListView, ProductoDetailView, IndexView, ComponenteListView, \
     ComponenteDetailView, ComponenteCreateView, ClienteCreateView, ProductoDeleteView, ClienteListView, \
-    ClienteDetailView, PedidoUpdateView, PedidoDetailView, PedidoListView, PedidoCreateView, ProductoUpdateView
+    ClienteDetailView, PedidoUpdateView, PedidoDetailView, PedidoListView, PedidoCreateView, ProductoUpdateView, \
+    ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -29,11 +30,17 @@ urlpatterns = [
     path('componentes/', ComponenteListView.as_view(), name='lista_componentes'),
     path('componente/<str:pk>', ComponenteDetailView.as_view(), name='detalle_componente'),
     path('componente/create/', ComponenteCreateView.as_view(), name='crear_componente'),
+    path('componente/<str:pk>/update/', ComponenteUpdateView.as_view(), name='actualizar_componente'),
+    path('componente/<int:pk>/delete/', ComponenteDeleteView.as_view(), name='eliminar_componente'),
     path('cliente/create/', ClienteCreateView.as_view(), name='crear_cliente'),
     path('cliente/', ClienteListView.as_view(), name='lista_clientes'),
     path('cliente/<int:pk>', ClienteDetailView.as_view(), name='detalle_cliente'),
+    path('cliente/<str:pk>/update/', ClienteUpdateView.as_view(), name='actualizar_cliente'),
+    path('cliente/<int:pk>/delete/', ClienteDeleteView.as_view(), name='eliminar_cliente'),
     path('pedido/create/', PedidoCreateView.as_view(), name='crear_pedido'),
     path('pedidos/', PedidoListView.as_view(), name='lista_pedidos'),
     path('pedido/<str:pk>/', PedidoDetailView.as_view(), name='detalle_pedido'),
     path('pedido/<str:pk>/update/', PedidoUpdateView.as_view(), name='actualizar_pedido'),
+    path('pedido/<str:pk>/delete/', PedidoDeleteView.as_view(), name='eliminar_pedido'),
+
 ]

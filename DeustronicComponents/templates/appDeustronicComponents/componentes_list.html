@@ -5,7 +5,9 @@
     <ul>
         {% for componente in componentes %}
             <li><a href="{% url 'detalle_componente' componente.pk %}">{{ componente.marca }}
-                - {{ componente.modelo }}</a></li>
+                - {{ componente.modelo }}</a>
+                <a href="{% url 'actualizar_componente' componente.pk %}">Actualizar componente</a>
+                <a href="{% url 'eliminar_componente' pk=componente.pk %}">Eliminar componente</a></li>
         {% empty %}
             <li>No hay modelos disponibles</li>
         {% endfor %}
