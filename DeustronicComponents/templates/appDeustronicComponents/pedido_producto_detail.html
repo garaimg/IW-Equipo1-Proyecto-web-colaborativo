@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
 {% block titulo %}Detalle del Pedido: {{ pedido.cod_ref_ped }}{% endblock %}
 {% block contenido %}
-    <h1>Detalle del Pedido: {{ pedido.cod_ref_ped }}</h1>
-    <p>Código de referencia: {{ pedido.cod_ref_ped }}</p>
-    <p>Fecha: {{ pedido.fecha }}</p>
-    <p>Cliente: {{ pedido.cliente }}</p>
-    <p>Precio Total: {{ pedido.precio_total }}</p>
-    <h3>Productos del Pedido:</h3>
-    <ul>
-        {% for pedido_producto in pedido_productos %}
-            <li>{{ pedido_producto.producto }} - Cantidad: {{ pedido_producto.cantidad }}</li>
-        {% empty %}
-            <li>No hay productos asociados a este pedido.</li>
-        {% endfor %}
-    </ul>
+<h1>Detalle del Pedido: {{ pedido.cod_ref_ped }}</h1>
+<p>Código de referencia: {{ pedido.cod_ref_ped }}</p>
+<p>Fecha: {{ pedido.fecha }}</p>
+<p>Cliente: {{ pedido.cliente }}</p>
+<p>Precio Total: {{ pedido.precio_total }}</p>
+<h3>Productos del Pedido:</h3>
+<ul>
+    <li>{{ pedido_producto.producto }} - Cantidad: {{ pedido_producto.cantidad }}</li>
+</ul>
 {% endblock %}

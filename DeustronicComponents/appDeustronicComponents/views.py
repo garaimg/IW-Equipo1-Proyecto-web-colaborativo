@@ -293,7 +293,7 @@ class PedidoProductoListView(ListView):
 class PedidoProductoDetailView(DetailView):
     model = PedidoProducto
     template_name = 'appDeustronicComponents/pedido_producto_detail.html'
-    context_object_name = 'pedido_productos'
+    context_object_name = 'pedido_producto'
 
     def get_queryset(self):
         pedido_producto = PedidoProducto.objects.get(pk=self.kwargs['pk'])
