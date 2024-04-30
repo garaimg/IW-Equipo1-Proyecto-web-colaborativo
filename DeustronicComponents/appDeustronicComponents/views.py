@@ -295,14 +295,16 @@ class PedidoProductoDetailView(DetailView):
     template_name = 'appDeustronicComponents/pedido_producto_detail.html'
     context_object_name = 'pedido_producto'
 
-    def get_queryset(self):
-        pedido_producto = PedidoProducto.objects.get(pk=self.kwargs['pk'])
-        pedido = pedido_producto.pedido
-        queryset = PedidoProducto.objects.filter(pedido=pedido)
-        return queryset
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pedido_producto = self.get_object()
-        context['pedido'] = pedido_producto.pedido
+        pedido = pedido_producto.pedido  # Obtén el pedido asociado al pedido_producto actual
+
+        # Obtén todos los pedido_productos que pertenecen al mismo pedido
+        productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
+
+        # Agrega los productos al contexto
+        context['productos_del_pedido'] = productos_del_pedido
+        context['pedido'] = pedido  # Agrega también el pedido al contexto
+
         return context

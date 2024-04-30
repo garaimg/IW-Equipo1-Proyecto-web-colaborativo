@@ -8,6 +8,10 @@
 <p>Precio Total: {{ pedido.precio_total }}</p>
 <h3>Productos del Pedido:</h3>
 <ul>
-    <li>{{ pedido_producto.producto }} - Cantidad: {{ pedido_producto.cantidad }}</li>
+    {% for pedido_producto in productos_del_pedido %}
+        <li>{{ pedido_producto.producto }} - Cantidad: {{ pedido_producto.cantidad }}</li>
+    {% empty %}
+        <li>No hay productos asociados a este pedido.</li>
+    {% endfor %}
 </ul>
 {% endblock %}
