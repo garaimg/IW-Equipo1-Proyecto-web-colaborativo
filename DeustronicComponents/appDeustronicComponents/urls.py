@@ -18,7 +18,8 @@ from django.urls import path
 from .views import ProductoCreateView, ProductoListView, ProductoDetailView, IndexView, ComponenteListView, \
     ComponenteDetailView, ComponenteCreateView, ClienteCreateView, ProductoDeleteView, ClienteListView, \
     ClienteDetailView, PedidoUpdateView, PedidoDetailView, PedidoListView, PedidoCreateView, ProductoUpdateView, \
-    ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView
+    ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView, \
+    PedidoProductoCreateView, PedidoProductoDetailView, PedidoProductoListView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -42,5 +43,7 @@ urlpatterns = [
     path('pedido/<str:pk>/', PedidoDetailView.as_view(), name='detalle_pedido'),
     path('pedido/<str:pk>/update/', PedidoUpdateView.as_view(), name='actualizar_pedido'),
     path('pedido/<str:pk>/delete/', PedidoDeleteView.as_view(), name='eliminar_pedido'),
-
+    path('pedido_producto/create/', PedidoProductoCreateView.as_view(), name='crear_pedido_producto'),
+    path('pedido_productos/', PedidoProductoListView.as_view(), name='lista_pedido_productos'),
+    path('pedido_producto/<int:pk>/', PedidoProductoDetailView.as_view(), name='detalle_pedido_producto'),
 ]

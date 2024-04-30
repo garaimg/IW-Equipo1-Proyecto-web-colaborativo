@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Producto, Componente, Cliente, Pedido
+from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
-    ComponenteFormUpdate, ClienteFormUpdate
+    ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm
 
 
 # Create your views here.
@@ -262,8 +262,47 @@ class PedidoUpdateView(UpdateView):
         else:
             return render(request, self.template_name, {'formulario': formulario})
 
+
 class PedidoDeleteView(DeleteView):
     model = Pedido
     template_name = 'appDeustronicComponents/pedido_confirm_delete.html'
     context_object_name = 'pedido'
     success_url = reverse_lazy('index')
+
+
+class PedidoProductoCreateView(View):
+    def get(self, request):
+        formulario = PedidoProductoForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/pedido_producto_create.html', context)
+
+    def post(self, request):
+        formulario = PedidoProductoForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('index')  # Ajusta 'index' a la URL a la que deseas redirigir
+        return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
+
+
+class PedidoProductoListView(ListView):
+    model = PedidoProducto
+    template_name = 'appDeustronicComponents/pedido_producto_list.html'
+    context_object_name = 'pedido_productos'
+
+
+class PedidoProductoDetailView(DetailView):
+    model = PedidoProducto
+    template_name = 'appDeustronicComponents/pedido_producto_detail.html'
+    context_object_name = 'pedido_productos'
+
+    def get_queryset(self):
+        pedido_producto = PedidoProducto.objects.get(pk=self.kwargs['pk'])
+        pedido = pedido_producto.pedido
+        queryset = PedidoProducto.objects.filter(pedido=pedido)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pedido_producto = self.get_object()
+        context['pedido'] = pedido_producto.pedido
+        return context

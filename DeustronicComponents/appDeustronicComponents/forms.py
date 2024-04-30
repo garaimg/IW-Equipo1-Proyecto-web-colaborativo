@@ -1,5 +1,6 @@
 from django import forms
-from .models import Producto, Componente, Cliente, Pedido
+from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
+from django.forms import formset_factory
 
 
 class ProductoForm(forms.ModelForm):
@@ -48,3 +49,9 @@ class PedidoFormUpdate(forms.ModelForm):
     class Meta:
         model = Pedido
         fields = ['fecha', 'cliente']
+
+
+class PedidoProductoForm(forms.ModelForm):
+    class Meta:
+        model = PedidoProducto
+        fields = ['pedido', 'producto', 'cantidad']
