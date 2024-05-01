@@ -282,7 +282,7 @@ class PedidoProductoCreateView(View):
         return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
 
 
-class PedidoProductoListView(ListView):
+class PedidoListView(ListView):
     model = Pedido
     template_name = 'appDeustronicComponents/pedido_producto_list.html'
     context_object_name = 'pedidos'
