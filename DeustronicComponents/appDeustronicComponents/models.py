@@ -12,7 +12,7 @@ class Cliente(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.nombre_empresa} ({self.cif})"
+        return f"{self.nombre_empresa}"
 
     class Meta:
         verbose_name_plural = "clientes"
@@ -29,7 +29,7 @@ class Pedido(models.Model):
     precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
-        return f"{self.cod_ref_ped} ({self.fecha})"
+        return f"{self.cod_ref_ped}"
 
     class Meta:
         verbose_name_plural = "pedidos"
@@ -45,7 +45,7 @@ class Componente(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.cod_ref_comp} ({self.modelo})"
+        return f"{self.cod_ref_comp}"
 
     class Meta:
         verbose_name_plural = "componentes"
@@ -64,7 +64,7 @@ class Producto(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.nombre} ({self.cod_ref_prod})"
+        return f"{self.nombre}"
 
     class Meta:
         verbose_name_plural = "productos"

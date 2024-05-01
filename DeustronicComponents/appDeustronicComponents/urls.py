@@ -20,7 +20,7 @@ from .views import ProductoCreateView, ProductoListView, ProductoDetailView, Ind
     ClienteDetailView, PedidoUpdateView, PedidoCreateView, ProductoUpdateView, \
     ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView, \
     PedidoProductoCreateView, PedidoProductoDetailView, PedidoListView, PedidoProductoUpdateView, \
-    PedidoProductoDeleteView
+    PedidoProductoDeleteView, ProductoDetailView2
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('producto/<str:pk>/update/', ProductoUpdateView.as_view(), name='producto_update'),
     path('productos/', ProductoListView.as_view(), name='lista_productos'),
     path('producto/<int:pk>/', ProductoDetailView.as_view(), name='detalle_producto'),
+    path('producto/<str:nombre>/detalle/', ProductoDetailView2.as_view(), name='detalle_producto2'),
     path('producto/<int:pk>/delete/', ProductoDeleteView.as_view(), name='eliminar_producto'),
     path('componentes/', ComponenteListView.as_view(), name='lista_componentes'),
     path('componente/<str:pk>', ComponenteDetailView.as_view(), name='detalle_componente'),

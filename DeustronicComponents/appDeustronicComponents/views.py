@@ -51,6 +51,24 @@ class ProductoDetailView(DetailView):
         return context
 
 
+class ProductoDetailView2(DetailView):
+    model = Producto
+    template_name = 'appDeustronicComponents/producto_detail.html'
+    context_object_name = 'producto'
+
+    def get_object(self, queryset=None):
+        nombre_producto = self.kwargs['nombre']
+        return get_object_or_404(Producto, nombre=nombre_producto)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        producto = self.get_object()
+        componentes = producto.componente.all()
+        context['componentes'] = componentes
+        return context
+
+
+
 class ProductoUpdateView(UpdateView):
     model = Producto
     form_class = ProductoFormUpdate
@@ -268,12 +286,10 @@ class PedidoProductoCreateView(View):
         if formulario.is_valid():
             pedido_producto = formulario.save()
 
-            # Recalcular el precio total del pedido
             pedido = pedido_producto.pedido
             productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
             precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
 
-            # Actualizar el precio total del pedido
             pedido.precio_total = precio_total_pedido
             pedido.save()
 
@@ -296,7 +312,6 @@ class PedidoProductoDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         pedido = self.get_object()
 
-        # Obtener todos los productos asociados a este pedido
         productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
 
         context['productos_del_pedido'] = productos_del_pedido
