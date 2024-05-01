@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block titulo %}Confirmar eliminación del producto del pedido - Deustronic Components S.L.{% endblock %}
+{% block contenido %}
+    <h2>¿Estás seguro de que deseas eliminar el producto "{{ PedidoProducto.nombre }}" del pedido?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Eliminar">
+    </form>
+{% endblock %}

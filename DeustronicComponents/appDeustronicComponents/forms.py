@@ -55,3 +55,9 @@ class PedidoProductoForm(forms.ModelForm):
     class Meta:
         model = PedidoProducto
         fields = ['pedido', 'producto', 'cantidad']
+
+
+class PedidoProductoFormUpdate(forms.ModelForm):
+    class Meta:
+        model = PedidoProducto
+        fields = ['pedido', 'producto', 'cantidad']

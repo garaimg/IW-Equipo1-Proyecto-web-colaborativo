@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
-    ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm
+    ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
 
 
 # Create your views here.
@@ -246,7 +246,7 @@ class PedidoUpdateView(UpdateView):
         formulario = PedidoFormUpdate(request.POST, instance=pedido)
         if formulario.is_valid():
             formulario.save()
-            return redirect('detalle_pedido', pk=pedido.pk)
+            return redirect('index')
         else:
             return render(request, self.template_name, {'formulario': formulario})
 
@@ -268,7 +268,7 @@ class PedidoProductoCreateView(View):
         formulario = PedidoProductoForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('index')  # Ajusta 'index' a la URL a la que deseas redirigir
+            return redirect('index')
         return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
 
 
@@ -292,3 +292,35 @@ class PedidoProductoDetailView(DetailView):
 
         context['productos_del_pedido'] = productos_del_pedido
         return context
+
+class PedidoProductoUpdateView(UpdateView):
+    model = PedidoProducto
+    form_class = PedidoProductoFormUpdate
+    template_name = 'appDeustronicComponents/pedido_producto_update.html'
+    success_url = reverse_lazy('lista_pedido_productos')
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
+        formulario = PedidoProductoFormUpdate(instance=pedidoproducto)
+        context = {
+            'formulario': formulario,
+            'pedido': pedidoproducto
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
+        formulario = PedidoProductoFormUpdate(request.POST, instance=pedidoproducto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('lista_pedido_productos')
+        else:
+            return render(request, self.template_name, {'formulario': formulario})
+
+class PedidoProductoDeleteView(DeleteView):
+    model = PedidoProducto
+    template_name = 'appDeustronicComponents/pedido_producto_confirm_delete.html'
+    context_object_name = 'pedidoproducto'
+    success_url = reverse_lazy('lista_pedido_productos')
