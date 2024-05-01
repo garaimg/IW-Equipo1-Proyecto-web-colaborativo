@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
@@ -267,8 +267,18 @@ class PedidoProductoCreateView(View):
     def post(self, request):
         formulario = PedidoProductoForm(data=request.POST)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('index')
+            pedido_producto = formulario.save()
+
+            # Recalcular el precio total del pedido
+            pedido = pedido_producto.pedido
+            productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
+            precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
+
+            # Actualizar el precio total del pedido
+            pedido.precio_total = precio_total_pedido
+            pedido.save()
+
+            return redirect('index')  # Redirige a la página principal o donde desees
         return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
 
 
@@ -292,6 +302,7 @@ class PedidoProductoDetailView(DetailView):
 
         context['productos_del_pedido'] = productos_del_pedido
         return context
+
 
 class PedidoProductoUpdateView(UpdateView):
     model = PedidoProducto
@@ -318,6 +329,7 @@ class PedidoProductoUpdateView(UpdateView):
             return redirect('lista_pedido_productos')
         else:
             return render(request, self.template_name, {'formulario': formulario})
+
 
 class PedidoProductoDeleteView(DeleteView):
     model = PedidoProducto
