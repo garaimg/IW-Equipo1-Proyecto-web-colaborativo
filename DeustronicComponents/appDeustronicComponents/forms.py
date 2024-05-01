@@ -1,6 +1,5 @@
 from django import forms
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
-from django.forms import formset_factory
 
 
 class ProductoForm(forms.ModelForm):

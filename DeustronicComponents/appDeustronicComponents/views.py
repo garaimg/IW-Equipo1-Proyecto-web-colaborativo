@@ -8,7 +8,6 @@ from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, Pedido
 
 
 # Create your views here.
-# UpdateView parecido a esto
 class ProductoCreateView(View):
 
     def get(self, request):
