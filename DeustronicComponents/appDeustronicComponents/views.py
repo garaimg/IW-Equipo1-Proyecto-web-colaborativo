@@ -342,4 +342,6 @@ class PedidoProductoDeleteView(DeleteView):
     model = PedidoProducto
     template_name = 'appDeustronicComponents/pedido_producto_confirm_delete.html'
     context_object_name = 'pedidoproducto'
-    success_url = reverse_lazy('detalle_pedido_producto', pk=PedidoProducto.pk)
+    success_url = reverse_lazy('lista_pedido_productos')
+
+
