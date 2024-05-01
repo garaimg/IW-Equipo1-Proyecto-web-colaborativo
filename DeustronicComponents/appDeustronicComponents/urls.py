@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path
 from .views import ProductoCreateView, ProductoListView, ProductoDetailView, IndexView, ComponenteListView, \
     ComponenteDetailView, ComponenteCreateView, ClienteCreateView, ProductoDeleteView, ClienteListView, \
-    ClienteDetailView, PedidoUpdateView, PedidoDetailView, PedidoListView, PedidoCreateView, ProductoUpdateView, \
+    ClienteDetailView, PedidoUpdateView, PedidoCreateView, ProductoUpdateView, \
     ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView, \
     PedidoProductoCreateView, PedidoProductoDetailView, PedidoProductoListView
 
@@ -39,11 +39,9 @@ urlpatterns = [
     path('cliente/<str:pk>/update/', ClienteUpdateView.as_view(), name='actualizar_cliente'),
     path('cliente/<int:pk>/delete/', ClienteDeleteView.as_view(), name='eliminar_cliente'),
     path('pedido/create/', PedidoCreateView.as_view(), name='crear_pedido'),
-    path('pedidos/', PedidoListView.as_view(), name='lista_pedidos'),
-    path('pedido/<str:pk>/', PedidoDetailView.as_view(), name='detalle_pedido'),
     path('pedido/<str:pk>/update/', PedidoUpdateView.as_view(), name='actualizar_pedido'),
     path('pedido/<str:pk>/delete/', PedidoDeleteView.as_view(), name='eliminar_pedido'),
     path('pedido_producto/create/', PedidoProductoCreateView.as_view(), name='crear_pedido_producto'),
     path('pedido_productos/', PedidoProductoListView.as_view(), name='lista_pedido_productos'),
-    path('pedido_producto/<int:pk>/', PedidoProductoDetailView.as_view(), name='detalle_pedido_producto'),
+    path('pedido_producto/<str:pk>/', PedidoProductoDetailView.as_view(), name='detalle_pedido_producto'),
 ]

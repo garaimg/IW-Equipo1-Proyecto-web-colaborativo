@@ -210,18 +210,6 @@ class ClienteDeleteView(DeleteView):
     success_url = reverse_lazy('index')
 
 
-class PedidoListView(ListView):
-    model = Pedido
-    template_name = 'appDeustronicComponents/pedidos_list.html'
-    context_object_name = 'pedidos'
-
-
-class PedidoDetailView(DetailView):
-    model = Pedido
-    template_name = 'appDeustronicComponents/pedido_detail.html'
-    context_object_name = 'pedido'
-
-
 class PedidoCreateView(View):
     def get(self, request):
         formulario = PedidoForm()
@@ -285,26 +273,22 @@ class PedidoProductoCreateView(View):
 
 
 class PedidoProductoListView(ListView):
-    model = PedidoProducto
+    model = Pedido
     template_name = 'appDeustronicComponents/pedido_producto_list.html'
-    context_object_name = 'pedido_productos'
+    context_object_name = 'pedidos'
 
 
 class PedidoProductoDetailView(DetailView):
-    model = PedidoProducto
+    model = Pedido
     template_name = 'appDeustronicComponents/pedido_producto_detail.html'
-    context_object_name = 'pedido_producto'
+    context_object_name = 'pedido'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pedido_producto = self.get_object()
-        pedido = pedido_producto.pedido  # Obtén el pedido asociado al pedido_producto actual
+        pedido = self.get_object()
 
-        # Obtén todos los pedido_productos que pertenecen al mismo pedido
+        # Obtener todos los productos asociados a este pedido
         productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
 
-        # Agrega los productos al contexto
         context['productos_del_pedido'] = productos_del_pedido
-        context['pedido'] = pedido  # Agrega también el pedido al contexto
-
         return context

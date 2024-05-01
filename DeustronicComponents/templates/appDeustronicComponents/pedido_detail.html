@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block titulo %}Detalle del Pedido: {{ pedido.cod_ref_ped }}{% endblock %}
-{% block contenido %}
-  <h1>Detalle del Pedido: {{ pedido.cod_ref_ped }}</h1>
-  <p>Código de referencia: {{ pedido.cod_ref_ped }}</p>
-  <p>Fecha: {{ pedido.fecha }}</p>
-  <p>Cliente: {{ pedido.cliente }}</p>
-  <p>Precio Total: {{ pedido.precio_total }}</p>
-{% endblock %}
