@@ -21,7 +21,7 @@ class ProductoCreateView(View):
         if formulario.is_valid():
             formulario.save()
             return redirect(
-                'index')
+                'lista_productos')
         return render(request, 'appDeustronicComponents/producto_create.html', {'formulario': formulario})
 
 
@@ -56,7 +56,7 @@ class ProductoUpdateView(UpdateView):
     model = Producto
     form_class = ProductoFormUpdate
     template_name = 'appDeustronicComponents/producto_update.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_productos')
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
@@ -83,7 +83,7 @@ class ProductoDeleteView(DeleteView):
     model = Producto
     template_name = 'appDeustronicComponents/producto_confirm_delete.html'
     context_object_name = 'producto'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_productos')
 
 
 class ComponenteCreateView(View):
@@ -98,7 +98,7 @@ class ComponenteCreateView(View):
         if formulario.is_valid():
             formulario.save()
             return redirect(
-                'index')
+                'lista_componentes')
         return render(request, 'appDeustronicComponents/componente_create.html', {'formulario': formulario})
 
 
@@ -118,7 +118,7 @@ class ComponenteUpdateView(UpdateView):
     model = Componente
     form_class = ProductoFormUpdate
     template_name = 'appDeustronicComponents/componente_update.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_componentes')
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
@@ -145,7 +145,7 @@ class ComponenteDeleteView(DeleteView):
     model = Componente
     template_name = 'appDeustronicComponents/componente_confirm_delete.html'
     context_object_name = 'componente'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_componentes')
 
 
 class ClienteCreateView(View):
@@ -160,7 +160,7 @@ class ClienteCreateView(View):
         if formulario.is_valid():
             formulario.save()
             return redirect(
-                'index')
+                'lista_clientes')
         return render(request, 'appDeustronicComponents/cliente_create.html', {'formulario': formulario})
 
 
@@ -180,7 +180,7 @@ class ClienteUpdateView(UpdateView):
     model = Cliente
     form_class = ClienteFormUpdate
     template_name = 'appDeustronicComponents/cliente_update.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_clientes')
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
@@ -195,7 +195,7 @@ class ClienteUpdateView(UpdateView):
     def post(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         cliente = get_object_or_404(Cliente, pk=pk)
-        formulario = ComponenteFormUpdate(request.POST, instance=cliente)
+        formulario = ClienteFormUpdate(request.POST, instance=cliente)
         if formulario.is_valid():
             formulario.save()
             return redirect('detalle_cliente', pk=cliente.pk)
@@ -207,7 +207,7 @@ class ClienteDeleteView(DeleteView):
     model = Cliente
     template_name = 'appDeustronicComponents/cliente_confirm_delete.html'
     context_object_name = 'cliente'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_clientes')
 
 
 class PedidoCreateView(View):
@@ -220,7 +220,7 @@ class PedidoCreateView(View):
         formulario = PedidoForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('index')
+            return redirect('lista_pedido_productos')
         return render(request, 'appDeustronicComponents/pedido_create.html', {'formulario': formulario})
 
 
@@ -228,7 +228,7 @@ class PedidoUpdateView(UpdateView):
     model = Pedido
     form_class = PedidoFormUpdate
     template_name = 'appDeustronicComponents/pedido_update.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_pedido_productos')
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
@@ -246,7 +246,7 @@ class PedidoUpdateView(UpdateView):
         formulario = PedidoFormUpdate(request.POST, instance=pedido)
         if formulario.is_valid():
             formulario.save()
-            return redirect('index')
+            return redirect('lista_pedido_productos')
         else:
             return render(request, self.template_name, {'formulario': formulario})
 
@@ -255,7 +255,7 @@ class PedidoDeleteView(DeleteView):
     model = Pedido
     template_name = 'appDeustronicComponents/pedido_confirm_delete.html'
     context_object_name = 'pedido'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('lista_pedido_productos')
 
 
 class PedidoProductoCreateView(View):
@@ -278,7 +278,7 @@ class PedidoProductoCreateView(View):
             pedido.precio_total = precio_total_pedido
             pedido.save()
 
-            return redirect('index')  # Redirige a la página principal o donde desees
+            return redirect('lista_pedido_productos')
         return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
 
 
@@ -325,7 +325,15 @@ class PedidoProductoUpdateView(UpdateView):
         pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
         formulario = PedidoProductoFormUpdate(request.POST, instance=pedidoproducto)
         if formulario.is_valid():
-            formulario.save()
+            pedido_producto = formulario.save()
+
+            pedido = pedido_producto.pedido
+            productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
+            precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
+
+            # Actualizar el precio total del pedido
+            pedido.precio_total = precio_total_pedido
+            pedido.save()
             return redirect('lista_pedido_productos')
         else:
             return render(request, self.template_name, {'formulario': formulario})
@@ -335,4 +343,4 @@ class PedidoProductoDeleteView(DeleteView):
     model = PedidoProducto
     template_name = 'appDeustronicComponents/pedido_producto_confirm_delete.html'
     context_object_name = 'pedidoproducto'
-    success_url = reverse_lazy('lista_pedido_productos')
+    success_url = reverse_lazy('detalle_pedido_producto', pk=PedidoProducto.pk)
