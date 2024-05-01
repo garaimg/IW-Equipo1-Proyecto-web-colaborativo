@@ -330,7 +330,6 @@ class PedidoProductoUpdateView(UpdateView):
             productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
             precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
 
-            # Actualizar el precio total del pedido
             pedido.precio_total = precio_total_pedido
             pedido.save()
             return redirect('lista_pedido_productos')
@@ -344,4 +343,17 @@ class PedidoProductoDeleteView(DeleteView):
     context_object_name = 'pedidoproducto'
     success_url = reverse_lazy('lista_pedido_productos')
 
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
+        pedido = pedidoproducto.pedido
 
+        pedidoproducto.delete()
+
+        productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
+        precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
+
+        pedido.precio_total = precio_total_pedido
+        pedido.save()
+
+        return redirect('lista_pedido_productos')
