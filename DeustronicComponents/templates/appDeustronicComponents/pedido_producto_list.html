@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block titulo %}Lista de Productos del Pedido{% endblock %}
 {% block contenido %}
-<h1>Lista de Productos del Pedido</h1>
+<h2 class="izq">Lista de Productos del Pedido</h2>
 <ul class="lista">
     {% for pedido in pedidos %}
-    <li><a href="{% url 'detalle_pedido_producto' pedido.pk %}">Pedido: {{ pedido.cod_ref_ped }}</a>
-        <a href="{% url 'actualizar_pedido' pk=pedido.pk %}">Actualizar Pedido</a>
-        <a href="{% url 'eliminar_pedido' pk=pedido.pk %}">Eliminar Pedido</a></li>
+    <li><a href="{% url 'detalle_pedido_producto' pedido.pk %}">Pedido: {{ pedido.cod_ref_ped }}</a></li>
+    <ul>
+        <li><a href="{% url 'actualizar_pedido' pk=pedido.pk %}">Actualizar Pedido</a></li>
+        <li><a href="{% url 'eliminar_pedido' pk=pedido.pk %}">Eliminar Pedido</a></li>
+    </ul>
     {% empty %}
     <li>No hay pedidos con productos.</li>
     {% endfor %}

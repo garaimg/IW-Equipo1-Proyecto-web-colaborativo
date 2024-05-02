@@ -22,6 +22,11 @@ h1, h2, h3 {
 h2 {
     text-align: center;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* Sombra del texto */
+    font-size: 3rem;
+}
+
+.izq{
+    text-align: left;
 }
 
 body {
@@ -145,7 +150,7 @@ a:hover {
 /* Listas de elementos */
 
 .lista {
-    list-style-type: circle;
+    list-style-type: decimal;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -160,6 +165,11 @@ a:hover {
 
     li a:hover {
         color: #1262f6;
+    }
+
+    ul li a{
+        color: gray;
+        text-decoration: none;
     }
 
 }

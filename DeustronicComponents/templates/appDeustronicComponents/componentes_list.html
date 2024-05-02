@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block titulo %}Componenetes - Deustronic Components S.L.{% endblock %}
 {% block contenido %}
-<h2>Listado de Componentes</h2>
+<h2 class="izq">Listado de Componentes</h2>
 <ul class="lista">
     {% for componente in componentes %}
     <li><a href="{% url 'detalle_componente' componente.pk %}">{{ componente.marca }}
-        - {{ componente.modelo }}</a>
-        <a href="{% url 'actualizar_componente' componente.pk %}">Actualizar componente</a>
-        <a href="{% url 'eliminar_componente' pk=componente.pk %}">Eliminar componente</a></li>
+        - {{ componente.modelo }}</a></li>
+    <ul>
+        <li><a href="{% url 'actualizar_componente' componente.pk %}">Actualizar componente</a></li>
+        <li><a href="{% url 'eliminar_componente' pk=componente.pk %}">Eliminar componente</a></li>
+    </ul>
     {% empty %}
     <li>No hay modelos disponibles</li>
     {% endfor %}
