@@ -238,7 +238,7 @@ class PedidoCreateView(View):
         formulario = PedidoForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('lista_pedido_productos')
+            return redirect('crear_pedido_producto')
         return render(request, 'appDeustronicComponents/pedido_create.html', {'formulario': formulario})
 
 
