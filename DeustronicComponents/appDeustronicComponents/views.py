@@ -69,7 +69,6 @@ class ProductoDetailView2(DetailView):
         return context
 
 
-
 class ProductoUpdateView(UpdateView):
     model = Producto
     form_class = ProductoFormUpdate

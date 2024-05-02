@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block titulo %}Actualizar Productos del pedido{% endblock %}
 {% block contenido %}
-  <h1>Actualizar productos del pedido: {{ pedidoproducto.pedido }}</h1>
+<h1>Actualizar productos del pedido: {{ pedidoproducto.pedido }}</h1>
 <div class="contenedor-formulario">
-  <form method="post">
-    {% csrf_token %}
-    {{ formulario.as_p }}
-    <button type="submit">Guardar Cambios</button>
-  </form>
-  </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ formulario.as_p }}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</div>
 {% endblock %}

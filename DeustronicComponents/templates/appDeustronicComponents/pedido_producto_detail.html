@@ -9,13 +9,13 @@
 <h3>Productos del Pedido:</h3>
 <ul>
     {% for pedido_producto in productos_del_pedido %}
-        <li><a href="{% url 'detalle_producto2' nombre=pedido_producto.producto %}">{{ pedido_producto.producto }}</a>
-            - Cantidad: {{ pedido_producto.cantidad }}
-            <a href="{% url 'actualizar_pedido_producto' pk=pedido_producto.pk %}">Actualizar Producto</a>
-            <a href="{% url 'eliminar_pedido_producto' pk=pedido_producto.pk %}">Eliminar Producto</a>
-        </li>
+    <li><a href="{% url 'detalle_producto2' nombre=pedido_producto.producto %}">{{ pedido_producto.producto }}</a>
+        - Cantidad: {{ pedido_producto.cantidad }}
+        <a href="{% url 'actualizar_pedido_producto' pk=pedido_producto.pk %}">Actualizar Producto</a>
+        <a href="{% url 'eliminar_pedido_producto' pk=pedido_producto.pk %}">Eliminar Producto</a>
+    </li>
     {% empty %}
-        <li>No hay productos asociados a este pedido.</li>
+    <li>No hay productos asociados a este pedido.</li>
     {% endfor %}
 </ul>
 {% endblock %}

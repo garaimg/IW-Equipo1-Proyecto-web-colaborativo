@@ -2,18 +2,19 @@
 
 **RETO 2: GESTIÓN DE PEDIDOS**
 
-○ Enlace al repositorio de Github: 
+○ Enlace al repositorio de Github:
 
     https://github.com/garaimg/IW-Equipo1-Proyecto-web-colaborativo
 
-○ Funcionalidades: 
-    
+○ Funcionalidades:
+
     - Gestión de productos: creación, visualización (listado y detalle) y baja.
     - Gestión de pedidos: creación, visualización (listado y detalle) y actualización.
     - (EXTRA) Gestión de clientes: creación, visualización y actualización. 
     - (EXTRA) Gestión de componentes que componen cada producto: creación, visualización y actualización.
+    - (EXTRA) Gestión de productos que componen cada pedido: creación, visualización y actualización.
 
-○ Fuentes: 
+○ Fuentes:
 
     - ALUD Ingeniería Web
     - W3 Schools (https://www.w3schools.com/django/index.php)
