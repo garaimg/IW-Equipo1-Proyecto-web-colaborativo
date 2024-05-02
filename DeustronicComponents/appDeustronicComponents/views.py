@@ -21,7 +21,8 @@ class ProductoCreateView(View):
             formulario.save()
             return redirect(
                 'lista_productos')
-        return render(request, 'appDeustronicComponents/producto_create.html', {'formulario': formulario})
+        return render(request, 'appDeustronicComponents/producto_create.html',
+                      {'formulario': formulario})
 
 
 class IndexView(View):

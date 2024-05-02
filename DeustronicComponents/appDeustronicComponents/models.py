@@ -45,7 +45,7 @@ class Componente(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.cod_ref_comp}"
+        return f"{self.modelo}"
 
     class Meta:
         verbose_name_plural = "componentes"
