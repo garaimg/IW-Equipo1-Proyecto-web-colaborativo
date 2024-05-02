@@ -173,8 +173,10 @@ input[type="password"] {
     border-radius: 3px;
 }
 
-button[type="submit"] {
-    background-color: #4CAF50; /* Green */
+/* Botones de enviar/aceptar */
+
+[type="submit"] {
+    background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -184,6 +186,10 @@ button[type="submit"] {
     font-weight: bold;
 }
 
+[type="submit"]:hover {
+    background-color: #5E5694;
+    transition: background-color 0.3s;
+}
 
 /* Footer */
 
