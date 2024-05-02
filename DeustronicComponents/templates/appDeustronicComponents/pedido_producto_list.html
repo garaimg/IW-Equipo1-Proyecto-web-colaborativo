@@ -2,7 +2,7 @@
 {% block titulo %}Lista de Productos del Pedido{% endblock %}
 {% block contenido %}
 <h1>Lista de Productos del Pedido</h1>
-<ul>
+<ul  class="lista">
     {% for pedido in pedidos %}
     <li><a href="{% url 'detalle_pedido_producto' pedido.pk %}">Pedido: {{ pedido.cod_ref_ped }}</a>
         <a href="{% url 'actualizar_pedido' pk=pedido.pk %}">Actualizar Pedido</a>

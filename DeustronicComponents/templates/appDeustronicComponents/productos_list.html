@@ -2,7 +2,7 @@
 {% block titulo %}Productos - Deustronic Components S.L.{% endblock %}
 {% block contenido %}
     <h2>Listado de Productos</h2>
-    <ul>
+    <ul class="lista">
         {% for producto in productos %}
             <li><a href="{% url 'detalle_producto' producto.pk %}">{{ producto.nombre }}</a>
                 <a href="{% url 'producto_update' pk=producto.pk %}">Actualizar Producto</a>

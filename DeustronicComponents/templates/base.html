@@ -15,7 +15,7 @@
     </div>
 </header>
 <nav>
-    <ul>
+    <ul id="lista-nav">
         <li><a href="{% url 'lista_productos' %}">Productos</a></li>
         <li><a href="{% url 'crear_producto' %}">Crear producto</a></li>
         <li><a href="{% url 'lista_componentes' %}">Componentes de productos</a></li>
@@ -29,7 +29,7 @@
 </nav>
 <div id="content">
     <section class="main-section">
-        <h2>Aplicación de gestión de DeustronicComponents</h2>
+        <h2>Aplicación de gestión de Deustronic Components</h2>
         <p>Gestiona Clientes, Pedidos, Productos y Componentes.</p>
     </section>
     {% block contenido %}{% endblock %}
