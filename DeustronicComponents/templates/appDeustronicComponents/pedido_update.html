@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block titulo %}Actualizar Pedido{% endblock %}
 {% block contenido %}
-  <h1>Actualizar Pedido: {{ pedido.cod_ref_ped }}</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ formulario.as_p }}
-    <button type="submit">Guardar Cambios</button>
-  </form>
+<h1>Actualizar Pedido: {{ pedido.cod_ref_ped }}</h1>
+<div class="contenedor-formulario">
+    <form method="post">
+        {% csrf_token %}
+        {{ formulario.as_p }}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</div>
 {% endblock %}

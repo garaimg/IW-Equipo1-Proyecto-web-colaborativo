@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block titulo %}Confirmar Eliminación del Componente - Deustronic Components S.L.{% endblock %}
 {% block contenido %}
-    <h2>¿Estás seguro de que deseas eliminar el componente "{{ componente.marca }}
-                - {{ componente.modelo }}"?</h2>
+<h2>¿Estás seguro de que deseas eliminar el componente "{{ componente.marca }}
+    - {{ componente.modelo }}"?</h2>
+<div class="contenedor-formulario">
     <form method="post">
         {% csrf_token %}
         <input type="submit" value="Eliminar">
     </form>
+</div>
 {% endblock %}

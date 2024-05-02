@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-    Crear PedidoProducto - Deustronic Components S.L.
+Crear PedidoProducto - Deustronic Components S.L.
 {% endblock %}
 
 {% block contenido %}
-    <h1>Añadir Productos al Pedido</h1>
+<h1>Añadir Productos al Pedido</h1>
+<div class="contenedor-formulario">
     <form method="post">
         {% csrf_token %}
         {{ formulario.as_p }}
         <button type="submit">Añadir Producto</button>
     </form>
+</div>
 {% endblock %}

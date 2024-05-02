@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% block titulo %}Productos - Deustronic Components S.L.{% endblock %}
 {% block contenido %}
-    <h2>Listado de Productos</h2>
-    <ul class="lista">
-        {% for producto in productos %}
-            <li><a href="{% url 'detalle_producto' producto.pk %}">{{ producto.nombre }}</a>
-                <a href="{% url 'producto_update' pk=producto.pk %}">Actualizar Producto</a>
-                <a href="{% url 'eliminar_producto' pk=producto.pk %}">Eliminar Producto</a></li>
-        {% empty %}
-            <li>No hay productos disponibles</li>
-        {% endfor %}
+<h2>Listado de Productos</h2>
+<ul class="lista">
+    {% for producto in productos %}
+    <li><a href="{% url 'detalle_producto' producto.pk %}">{{ producto.nombre }}</a></li>
+    <ul>
+        <li><a href="{% url 'producto_update' pk=producto.pk %}">Actualizar Producto</a></li>
+        <li><a href="{% url 'eliminar_producto' pk=producto.pk %}">Eliminar Producto</a></li>
     </ul>
+    {% empty %}
+    <li>No hay productos disponibles</li>
+    {% endfor %}
+</ul>
 {% endblock %}

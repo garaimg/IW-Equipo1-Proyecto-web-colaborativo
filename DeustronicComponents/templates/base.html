@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,10 +18,13 @@
     <ul id="lista-nav">
         <li><a href="{% url 'lista_productos' %}">Productos</a></li>
         <li><a href="{% url 'crear_producto' %}">Crear producto</a></li>
-        <li><a href="{% url 'lista_componentes' %}">Componentes de productos</a></li>
+         <hr>
+        <li><a href="{% url 'lista_componentes' %}">Componentes</a></li>
         <li><a href="{% url 'crear_componente' %}">Crear componente</a></li>
+         <hr>
         <li><a href="{% url 'lista_clientes' %}">Clientes</a></li>
         <li><a href="{% url 'crear_cliente' %}">Crear cliente</a></li>
+         <hr>
         <li><a href="{% url 'lista_pedido_productos' %}">Pedidos</a></li>
         <li><a href="{% url 'crear_pedido' %}">Crear pedido</a></li>
         <li><a href="{% url 'crear_pedido_producto' %}">Agregar productos al pedido</a></li>
