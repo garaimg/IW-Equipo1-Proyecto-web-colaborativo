@@ -17,16 +17,13 @@
 <nav>
     <ul id="lista-nav">
         <li><a href="{% url 'lista_productos' %}">Productos</a></li>
-        <li><a href="{% url 'crear_producto' %}">Crear producto</a></li>
-        <hr>
+        <li class="separador"><a href="{% url 'crear_producto' %}">Crear producto</a></li>
         <li><a href="{% url 'lista_componentes' %}">Componentes</a></li>
-        <li><a href="{% url 'crear_componente' %}">Crear componente</a></li>
-        <hr>
+        <li class="separador"><a href="{% url 'crear_componente' %}">Crear componente</a></li>
         <li><a href="{% url 'lista_clientes' %}">Clientes</a></li>
-        <li><a href="{% url 'crear_cliente' %}">Crear cliente</a></li>
-        <hr>
+        <li class="separador"><a href="{% url 'crear_cliente' %}">Crear cliente</a></li>
         <li><a href="{% url 'lista_pedido_productos' %}">Pedidos</a></li>
-        <li><a href="{% url 'crear_pedido' %}">Crear pedido</a></li>
+        <li class="separador"><a href="{% url 'crear_pedido' %}">Crear pedido</a></li>
         <li><a href="{% url 'crear_pedido_producto' %}">Agregar productos al pedido</a></li>
     </ul>
 </nav>
