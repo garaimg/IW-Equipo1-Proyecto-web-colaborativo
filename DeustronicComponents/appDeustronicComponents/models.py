@@ -2,6 +2,7 @@
 from django.db import models
 
 
+# Modelo que contiene la información de los clientes
 class Cliente(models.Model):
     cif = models.CharField(max_length=100, primary_key=True)
     nombre_empresa = models.CharField(max_length=100)
@@ -20,6 +21,7 @@ class Cliente(models.Model):
         ordering = ["-created"]
 
 
+# Modelo que contiene la información de los pedidos
 class Pedido(models.Model):
     cod_ref_ped = models.CharField(max_length=100, primary_key=True)
     fecha = models.DateField()
@@ -37,6 +39,7 @@ class Pedido(models.Model):
         ordering = ["-created"]
 
 
+# Modelo que contiene la información de los componentes
 class Componente(models.Model):
     cod_ref_comp = models.CharField(max_length=100, primary_key=True)
     modelo = models.CharField(max_length=100)
@@ -53,6 +56,7 @@ class Componente(models.Model):
         ordering = ["-created"]
 
 
+# Modelo que contiene la información de los preductos
 class Producto(models.Model):
     cod_ref_prod = models.CharField(max_length=100, primary_key=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -72,6 +76,8 @@ class Producto(models.Model):
         ordering = ["-created"]
 
 
+# Modelo que contiene la información de los productos que tiene cada pedido asi como la cantidad de
+# productos que se han solicitado en cada pedido cada pedido
 class PedidoProducto(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

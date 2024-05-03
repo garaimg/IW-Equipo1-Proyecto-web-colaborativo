@@ -7,7 +7,7 @@ from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, Pedido
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
 
 
-# Create your views here.
+# Clase para la creación de los productos
 class ProductoCreateView(View):
 
     def get(self, request):
@@ -25,17 +25,20 @@ class ProductoCreateView(View):
                       {'formulario': formulario})
 
 
+# Clase para la visualización de la página principal
 class IndexView(View):
     def get(self, request):
         return render(request, 'appDeustronicComponents/index.html')
 
 
+# Clase para la visualización de la lista de todos los productos
 class ProductoListView(ListView):
     model = Producto
     template_name = 'appDeustronicComponents/productos_list.html'
     context_object_name = 'productos'
 
 
+# Clase para la visualización de la lista detallada de cierto producto
 class ProductoDetailView(DetailView):
     model = Producto
     template_name = 'appDeustronicComponents/producto_detail.html'
@@ -52,6 +55,8 @@ class ProductoDetailView(DetailView):
         return context
 
 
+# Clase para la visualización de la lista detallada de cierto producto viniendo desde la vista detallada de los
+# productos de un pedido
 class ProductoDetailView2(DetailView):
     model = Producto
     template_name = 'appDeustronicComponents/producto_detail.html'
@@ -69,6 +74,7 @@ class ProductoDetailView2(DetailView):
         return context
 
 
+# Clase para la actualización de los detalles de cierto producto
 class ProductoUpdateView(UpdateView):
     model = Producto
     form_class = ProductoFormUpdate
@@ -96,6 +102,7 @@ class ProductoUpdateView(UpdateView):
             return render(request, self.template_name, {'formulario': formulario})
 
 
+# Clase para la eliminación de cierto producto
 class ProductoDeleteView(DeleteView):
     model = Producto
     template_name = 'appDeustronicComponents/producto_confirm_delete.html'
@@ -103,6 +110,7 @@ class ProductoDeleteView(DeleteView):
     success_url = reverse_lazy('lista_productos')
 
 
+# Clase para la creación de los componentes
 class ComponenteCreateView(View):
 
     def get(self, request):
@@ -119,18 +127,21 @@ class ComponenteCreateView(View):
         return render(request, 'appDeustronicComponents/componente_create.html', {'formulario': formulario})
 
 
+# Clase para la visualización de la lista de todos los componentes
 class ComponenteListView(ListView):
     model = Componente
     template_name = 'appDeustronicComponents/componentes_list.html'
     context_object_name = 'componentes'
 
 
+# Clase para la visualización de la lista detallada de cierto componente
 class ComponenteDetailView(DetailView):
     model = Componente
     template_name = 'appDeustronicComponents/componente_detail.html'
     context_object_name = 'componente'
 
 
+# Clase para la atualización de cierto componente
 class ComponenteUpdateView(UpdateView):
     model = Componente
     form_class = ProductoFormUpdate
@@ -158,6 +169,7 @@ class ComponenteUpdateView(UpdateView):
             return render(request, self.template_name, {'formulario': formulario})
 
 
+# Clase para la eliminación de cierto componente
 class ComponenteDeleteView(DeleteView):
     model = Componente
     template_name = 'appDeustronicComponents/componente_confirm_delete.html'
@@ -165,6 +177,7 @@ class ComponenteDeleteView(DeleteView):
     success_url = reverse_lazy('lista_componentes')
 
 
+# Clase para la creación de clientes
 class ClienteCreateView(View):
 
     def get(self, request):
@@ -181,18 +194,21 @@ class ClienteCreateView(View):
         return render(request, 'appDeustronicComponents/cliente_create.html', {'formulario': formulario})
 
 
+# Clase para la visualización de la lista de todos los clientes
 class ClienteListView(ListView):
     model = Cliente
     template_name = 'appDeustronicComponents/clientes_list.html'
     context_object_name = 'clientes'
 
 
+# Clase para la visualización de la lista detallada de cierto cliente
 class ClienteDetailView(DetailView):
     model = Cliente
     template_name = 'appDeustronicComponents/cliente_detail.html'
     context_object_name = 'cliente'
 
 
+# Clase para la actualización de cierto cliente
 class ClienteUpdateView(UpdateView):
     model = Cliente
     form_class = ClienteFormUpdate
@@ -220,6 +236,7 @@ class ClienteUpdateView(UpdateView):
             return render(request, self.template_name, {'formulario': formulario})
 
 
+# Clase para la eliminación de cierto cliente
 class ClienteDeleteView(DeleteView):
     model = Cliente
     template_name = 'appDeustronicComponents/cliente_confirm_delete.html'
@@ -227,6 +244,7 @@ class ClienteDeleteView(DeleteView):
     success_url = reverse_lazy('lista_clientes')
 
 
+# Clase para la cración de los pedidos
 class PedidoCreateView(View):
     def get(self, request):
         formulario = PedidoForm()
@@ -241,6 +259,7 @@ class PedidoCreateView(View):
         return render(request, 'appDeustronicComponents/pedido_create.html', {'formulario': formulario})
 
 
+# Clase para la actualización de la información de cierto pedido
 class PedidoUpdateView(UpdateView):
     model = Pedido
     form_class = PedidoFormUpdate
@@ -268,6 +287,7 @@ class PedidoUpdateView(UpdateView):
             return render(request, self.template_name, {'formulario': formulario})
 
 
+# Clase para la eliminación de cierto pedido
 class PedidoDeleteView(DeleteView):
     model = Pedido
     template_name = 'appDeustronicComponents/pedido_confirm_delete.html'
@@ -275,6 +295,8 @@ class PedidoDeleteView(DeleteView):
     success_url = reverse_lazy('lista_pedido_productos')
 
 
+# Clase para la creación de el producto que compone un pedido, guardando de uno en uno el producto con el pedido al que
+# pertenece, haciendo que haya una entrada en el modelo por cada producto en un pedido
 class PedidoProductoCreateView(View):
     def get(self, request):
         formulario = PedidoProductoForm()
@@ -297,12 +319,15 @@ class PedidoProductoCreateView(View):
         return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
 
 
+# Clase para la visualización de la lista de todos los pedidos
 class PedidoListView(ListView):
     model = Pedido
     template_name = 'appDeustronicComponents/pedido_producto_list.html'
     context_object_name = 'pedidos'
 
 
+# Clase para la visualización de la lista detallada de cierto pedido, donde se incluyen los productos que le han sido
+# añadidos
 class PedidoProductoDetailView(DetailView):
     model = Pedido
     template_name = 'appDeustronicComponents/pedido_producto_detail.html'
@@ -318,6 +343,8 @@ class PedidoProductoDetailView(DetailView):
         return context
 
 
+# Clase para la actualización de la información de cierto producto, permitiendole cambiar la información del modelo
+# Pedido-Producto. Esta información seria el pedido al que pertenece , el producto a comprar y la cantidad de productos que quiere
 class PedidoProductoUpdateView(UpdateView):
     model = PedidoProducto
     form_class = PedidoProductoFormUpdate
@@ -352,6 +379,7 @@ class PedidoProductoUpdateView(UpdateView):
             return render(request, self.template_name, {'formulario': formulario})
 
 
+# Clase para la eliminación de cierto producto en cierto pedido
 class PedidoProductoDeleteView(DeleteView):
     model = PedidoProducto
     template_name = 'appDeustronicComponents/pedido_producto_confirm_delete.html'
