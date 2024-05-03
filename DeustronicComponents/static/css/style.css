@@ -59,7 +59,7 @@ header {
     margin-right: 1rem;
     width: 9rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: 391px) {
         width: 50%;
         height: 50%;
         align-self: center;
