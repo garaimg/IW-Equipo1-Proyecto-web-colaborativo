@@ -23,10 +23,9 @@
 
 ○ Documentación adicional:
 
-    Para el tratamiento de los productos que componen cada pedido, hemos creado una segunda tabla que relaciona cada 
-    pedido con uno de los productos disponibles, haciendo una entrada por cada producto que compone el pedido. Para 
-    mostrar los pedidos que hay, hemos mostrado todas las líneas del modelo Pedidos, donde cada pedido aparece una sola 
-    vez con toda la información referente al mismo. Para mostrar los detalles del mismo, hemos hecho uso de los modelos 
-    Pedidos y PedidosProducto, con los que hemos mostrado los detalles de cada pedido con el primer modelo y los
-    productos de cada pedido con el segundo. Para hacer esto último, hemos mostrado todos los productos cuyo pedido 
-    estuviésemos buscando.
+    Para el tratamiento de los productos incluidos en cada pedido, hemos creado una segunda tabla que relaciona cada pedido con los productos disponibles. 
+    Por lo tanto, es necesario ingresar los productos uno por uno, pudiendo especificar la cantidad de cada uno de ellos. 
+    Para mostrar los pedidos existentes, hemos desplegado todas las líneas del modelo de Pedidos, donde cada pedido aparece una sola vez con toda la información relacionada. 
+    Para visualizar los detalles de cada pedido, hemos utilizado los modelos Pedidos y PedidosProducto,
+    permitiéndonos mostrar los detalles de cada pedido con el primer modelo y los productos asociados a cada pedido con el segundo. 
+    Para lograr esto último, hemos exhibido todos los productos correspondientes al pedido que estábamos buscando.
