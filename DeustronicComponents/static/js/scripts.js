@@ -11,13 +11,13 @@ aumentarButton.addEventListener('click', aumentarTamano);
 disminuirButton.addEventListener('click', disminuirTamano);
 
 function aumentarTamano() {
-    const htmlFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const htmlFontSize = getComputedStyle(document.documentElement).fontSize;
     const newFontSize = htmlFontSize * 1.1; // Aumenta un 10%
     document.documentElement.style.fontSize = `${newFontSize}px`;
 }
 
 function disminuirTamano() {
-    const htmlFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const htmlFontSize = getComputedStyle(document.documentElement).fontSize;
     const newFontSize = htmlFontSize * 0.9; // Dismunuye un 10%
     document.documentElement.style.fontSize = `${newFontSize}px`;
 }
