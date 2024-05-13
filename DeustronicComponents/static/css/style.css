@@ -22,10 +22,9 @@ h1, h2, h3 {
 h2 {
     text-align: center;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* Sombra del texto */
-    font-size: 3rem;
 }
 
-.izq{
+.izq {
     text-align: left;
 }
 
@@ -137,13 +136,13 @@ a:hover {
 
 .main-section h2 {
     color: #333;
-    font-size: 32px;
+    font-size: 3rem;
     margin-bottom: 20px;
 }
 
 .main-section p {
     color: #666;
-    font-size: 18px;
+    font-size: 2rem;
     margin-bottom: 40px;
 }
 
@@ -167,7 +166,7 @@ a:hover {
         color: #1262f6;
     }
 
-    ul li a{
+    ul li a {
         color: gray;
         text-decoration: none;
     }
@@ -234,4 +233,25 @@ footer {
     color: #fff;
     text-align: center;
     padding: 20px 0;
+}
+
+#tamaño_texto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    padding: 1rem;
+
+    button {
+        margin: 2rem;
+        padding: 0.7rem;
+        border-radius: 2px;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background-color: rgba(18, 166, 246, 0.53);
+        border-style: dashed;
+    }
+
 }
