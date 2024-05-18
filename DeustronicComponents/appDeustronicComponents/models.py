@@ -1,16 +1,27 @@
 # Create your models here.
 from django.db import models
-
-
 # Modelo que contiene la información de los clientes
+from django.contrib.auth.hashers import make_password, check_password
+
+
 class Cliente(models.Model):
     cif = models.CharField(max_length=100, primary_key=True)
     nombre_empresa = models.CharField(max_length=100)
     direccion = models.CharField(max_length=255)
     telefono = models.IntegerField()
     email = models.EmailField(max_length=255)
+    username = models.CharField(max_length=20, unique=True)
+    password = models.CharField(max_length=16)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+
+    def check_password(self, raw_password):
+        check = check_password(raw_password, self.password)
+        print(check)
+        return check
 
     def __str__(self):
         return f"{self.nombre_empresa}"

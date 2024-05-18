@@ -1,10 +1,11 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
-    ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
+    ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate, LoginForm
 
 
 # Clase para la creación de los productos
@@ -400,3 +401,27 @@ class PedidoProductoDeleteView(DeleteView):
         pedido.save()
 
         return redirect('lista_pedido_productos')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            try:
+                cliente = Cliente.objects.get(username=username)
+                cliente_pass = Cliente.objects.get(password=password)
+                if cliente:
+                    if cliente_pass:
+                        # Login successful
+                        return redirect('index')  # Replace 'home' with the name of your homepage view
+                    else:
+                        messages.error(request, 'Usuario o contraseña incorrectos')
+                else:
+                    messages.error(request, 'Usuario o contraseña incorrectos')
+            except Cliente.DoesNotExist:
+                messages.error(request, 'Usuario o contraseña incorrectos')
+    else:
+        form = LoginForm()
+    return render(request, 'appDeustronicComponents/login.html', {'form': form})
