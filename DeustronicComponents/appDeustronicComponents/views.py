@@ -410,14 +410,10 @@ def login_view(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             try:
-                cliente = Cliente.objects.get(username=username)
-                cliente_pass = Cliente.objects.get(password=password)
+                cliente = Cliente.objects.filter(username=username, password=password).first()
                 if cliente:
-                    if cliente_pass:
-                        # Login successful
-                        return redirect('index')  # Replace 'home' with the name of your homepage view
-                    else:
-                        messages.error(request, 'Usuario o contraseña incorrectos')
+                    # Login successful
+                    return redirect('index')  # Replace 'home' with the name of your homepage view
                 else:
                     messages.error(request, 'Usuario o contraseña incorrectos')
             except Cliente.DoesNotExist:
