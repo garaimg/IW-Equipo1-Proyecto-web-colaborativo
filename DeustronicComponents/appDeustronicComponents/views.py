@@ -7,6 +7,8 @@ from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate, LoginForm
 
+log = 0
+
 
 # Clase para la creación de los productos
 class ProductoCreateView(View):
@@ -28,8 +30,13 @@ class ProductoCreateView(View):
 
 # Clase para la visualización de la página principal
 class IndexView(View):
+
     def get(self, request):
-        return render(request, 'appDeustronicComponents/index.html')
+        global log
+        if log == 1:
+            return render(request, 'appDeustronicComponents/index.html')
+        else:
+            return redirect('login')
 
 
 # Clase para la visualización de la lista de todos los productos
@@ -296,7 +303,7 @@ class PedidoDeleteView(DeleteView):
     success_url = reverse_lazy('lista_pedido_productos')
 
 
-# Clase para la creación de el producto que compone un pedido, guardando de uno en uno el producto con el pedido al que
+# Clase para la creación del producto que compone un pedido, guardando de uno en uno el producto con el pedido al que
 # pertenece, haciendo que haya una entrada en el modelo por cada producto en un pedido
 class PedidoProductoCreateView(View):
     def get(self, request):
@@ -344,8 +351,10 @@ class PedidoProductoDetailView(DetailView):
         return context
 
 
-# Clase para la actualización de la información de cierto producto, permitiendole cambiar la información del modelo
-# Pedido-Producto. Esta información seria el pedido al que pertenece , el producto a comprar y la cantidad de productos que quiere
+# Clase para la actualización de la información de cierto producto, permitiéndole cambiar la información del modelo
+
+# Pedido-Producto. Esta información sería el pedido al que pertenece, el producto a comprar y la cantidad de productos
+# que quiere
 class PedidoProductoUpdateView(UpdateView):
     model = PedidoProducto
     form_class = PedidoProductoFormUpdate
@@ -404,20 +413,26 @@ class PedidoProductoDeleteView(DeleteView):
 
 
 def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            try:
-                cliente = Cliente.objects.filter(username=username, password=password).first()
-                if cliente:
-                    # Login successful
-                    return redirect('index')  # Replace 'home' with the name of your homepage view
-                else:
+    global log
+    if log == 0:
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                try:
+                    cliente = Cliente.objects.filter(username=username, password=password).first()
+                    if cliente:
+                        # Login successful
+                        log = 1
+                        return redirect('index')  # Replace 'home' with the name of your homepage view
+                    else:
+                        log = 0
+                        messages.error(request, 'Usuario o contraseña incorrectos')
+                except Cliente.DoesNotExist:
                     messages.error(request, 'Usuario o contraseña incorrectos')
-            except Cliente.DoesNotExist:
-                messages.error(request, 'Usuario o contraseña incorrectos')
+        else:
+            form = LoginForm()
+        return render(request, 'appDeustronicComponents/login.html', {'form': form})
     else:
-        form = LoginForm()
-    return render(request, 'appDeustronicComponents/login.html', {'form': form})
+        return redirect('index')
