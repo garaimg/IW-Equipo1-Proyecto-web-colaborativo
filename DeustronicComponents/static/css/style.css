@@ -254,11 +254,11 @@ footer {
         border-style: dashed;
     }
 
+/* Contenedor expansible */
+#nuestra-historia{
+    display: none;
+}
 
-
-
-
-    /* static/css/style.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
