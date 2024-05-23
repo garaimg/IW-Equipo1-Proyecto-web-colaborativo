@@ -7,6 +7,9 @@ from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate, LoginForm
 
+# Cuando la variable log está a 0, el cliente (usuario) no estará logueado y será necesario que se loguee.
+# Si está a 1, ya se encontrará logueado y no tendrá que loguearse de nuevo.
+
 log = 0
 
 
