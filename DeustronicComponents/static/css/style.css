@@ -36,6 +36,7 @@ body {
     font-size: 1.6rem;
 }
 
+
 /* Header*/
 
 header {
@@ -65,7 +66,7 @@ header {
     }
 }
 
-/* nav */
+/* barra nav */
 
 nav {
     background-color: #fff;
@@ -92,14 +93,14 @@ nav ul li:last-child {
     padding-right: 10px;
 }
 
-#lista-nav ul {
+#listaNav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
     text-align: center;
 }
 
-#lista-nav li {
+#listaNav li {
     display: inline-block;
     padding: 10px;
 }
@@ -170,7 +171,6 @@ a:hover {
         color: gray;
         text-decoration: none;
     }
-
 }
 
 /* Formularios */
@@ -235,6 +235,7 @@ footer {
     padding: 20px 0;
 }
 
+/* Para cambiar el tamaño de la letra */
 #tamaño_texto {
     display: flex;
     align-items: center;
@@ -254,20 +255,29 @@ footer {
         border-style: dashed;
     }
 
-/* Contenedor expansible */
-#nuestra-historia{
-    display: none;
+
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+/* Contenedor expansible */
+
+.cabeceraExpandible {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    background-color: rgba(249, 249, 249, 0.56);
     margin: 0;
 }
+
+.contenedorExpandible {
+    display: none;
+    text-align: justify;
+    background-color: rgba(249, 249, 249, 0.56);
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    margin: 0;
+}
+
+
 
 .login-container {
     background-color: white;
@@ -314,6 +324,4 @@ body {
     margin-top: 10px;
     color: red;
     text-align: center;
-}
-
 }
