@@ -1,7 +1,11 @@
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+import json
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
@@ -529,3 +533,25 @@ def login_view(request):
         return render(request, 'appDeustronicComponents/login.html', {'form': form})
     else:
         return redirect('index')
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UpdatePedidoEstadoView(View):
+    def post(self, request, *args, **kwargs):
+        if request.content_type == 'application/json':
+            try:
+                # Obtener los datos enviados en la solicitud
+                data = json.loads(request.body)
+                pedido_id = data.get('pedido_id')
+                nuevo_estado = data.get('estado')
+
+                # Actualizar el estado del pedido
+                pedido = get_object_or_404(Pedido, pk=pedido_id)
+                pedido.estado = nuevo_estado
+                pedido.save()
+
+                return JsonResponse({'success': True, 'estado': pedido.estado})
+            except json.JSONDecodeError:
+                return JsonResponse({'success': False, 'error': 'Invalid JSON'})
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid request'})

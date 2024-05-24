@@ -40,6 +40,7 @@ class Pedido(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    estado = models.CharField(max_length=20, default='en proceso')
 
     def __str__(self):
         return f"{self.cod_ref_ped}"
