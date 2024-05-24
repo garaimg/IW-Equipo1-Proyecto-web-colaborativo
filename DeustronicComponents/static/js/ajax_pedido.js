@@ -14,20 +14,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     'estado': 'completado'
                 })
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        let listItem = document.getElementById(`pedido-${pedidoId}`);
-                        let tick = document.createElement('span');
-                        tick.textContent = '\u2714';
-                        tick.classList.add('estado-completado');
-                        listItem.removeChild(button);
-                        listItem.appendChild(tick);
-                    } else {
-                        console.error('Error:', data.error);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let listItem = document.getElementById(`pedido-${pedidoId}`);
+                    let tick = document.createElement('span');
+                    tick.textContent = '\u2714';
+                    tick.classList.add('estado-completado');
+                    listItem.removeChild(button);
+                    listItem.appendChild(tick);
+                } else {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
         });
     });
 });

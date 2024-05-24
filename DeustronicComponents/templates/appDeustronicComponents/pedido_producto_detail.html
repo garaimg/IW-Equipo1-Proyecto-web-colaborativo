@@ -7,7 +7,7 @@
     <p>Cliente: {{ pedido.cliente }}</p>
     <p>Precio Total: {{ pedido.precio_total }}</p>
     <p> Estado del pedido:
-        {% if pedido_producto.pedido.estado == 'completado' %}
+        {% if pedido.estado == 'completado' %}
             <span class="estado-completado">&#10004;</span>  Completado
         {% else %}
             <span class="estado-no-completado">&#10006;</span> En proceso
