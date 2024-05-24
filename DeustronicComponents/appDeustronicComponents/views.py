@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
@@ -529,3 +530,18 @@ def login_view(request):
         return render(request, 'appDeustronicComponents/login.html', {'form': form})
     else:
         return redirect('index')
+
+
+class UpdatePedidoEstadoView(View):
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            nuevo_estado = 'completado'  # Suponiendo que siempre queremos cambiar el estado a "completado"
+            pedido_id = kwargs.get('pk')
+
+            pedido = get_object_or_404(Pedido, pk=pedido_id)
+            pedido.estado = nuevo_estado
+            pedido.save()
+
+            return JsonResponse({'success': True, 'estado': pedido.estado})
+
+        return JsonResponse({'success': False, 'error': 'Invalid request'})

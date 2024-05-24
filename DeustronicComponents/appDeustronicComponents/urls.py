@@ -20,7 +20,7 @@ from .views import ProductoCreateView, ProductoListView, ProductoDetailView, Ind
     ClienteDetailView, PedidoUpdateView, PedidoCreateView, ProductoUpdateView, \
     ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView, \
     PedidoProductoCreateView, PedidoProductoDetailView, PedidoListView, PedidoProductoUpdateView, \
-    PedidoProductoDeleteView, ProductoDetailView2, login_view
+    PedidoProductoDeleteView, ProductoDetailView2, login_view, UpdatePedidoEstadoView
 
 # Grupo de urls para el correcto redireccionamiento de nuestro proyecto
 urlpatterns = [
@@ -56,4 +56,6 @@ urlpatterns = [
     path('pedido_producto/<str:pk>/', PedidoProductoDetailView.as_view(), name='detalle_pedido_producto'),
     path('pedido_producto/<str:pk>/update/', PedidoProductoUpdateView.as_view(), name='actualizar_pedido_producto'),
     path('pedido_producto/<str:pk>/delete/', PedidoProductoDeleteView.as_view(), name='eliminar_pedido_producto'),
+    # url para la funcionalidad de ajax (actualizar estado del producto con solicitud post)
+    path('update_pedido_estado/<str:pk>/', UpdatePedidoEstadoView.as_view(), name='update_pedido_estado'),
 ]
