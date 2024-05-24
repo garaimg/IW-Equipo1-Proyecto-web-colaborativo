@@ -20,13 +20,13 @@ from .views import ProductoCreateView, ProductoListView, ProductoDetailView, Ind
     ClienteDetailView, PedidoUpdateView, PedidoCreateView, ProductoUpdateView, \
     ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView, \
     PedidoProductoCreateView, PedidoProductoDetailView, PedidoListView, PedidoProductoUpdateView, \
-    PedidoProductoDeleteView, ProductoDetailView2, login_view, UpdatePedidoEstadoView
+    PedidoProductoDeleteView, ProductoDetailView2, LoginFormView, UpdatePedidoEstadoView
 
 # Grupo de urls para el correcto redireccionamiento de nuestro proyecto
 urlpatterns = [
     # url de la página principal
     path('', IndexView.as_view(), name='index'),
-    path('login/', login_view, name='login'),
+    path('login/', LoginFormView.as_view(), name='login'),
     # urls para la gestión de productos
     path('producto/create/', ProductoCreateView.as_view(), name='crear_producto'),
     path('producto/<str:pk>/update/', ProductoUpdateView.as_view(), name='producto_update'),

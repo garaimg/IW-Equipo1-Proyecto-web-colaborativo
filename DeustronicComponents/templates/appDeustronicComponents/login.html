@@ -7,16 +7,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Iniciar Sesión</button>
-        </form>
-        {% for message in messages %}
-            <div class="message">{{ message }}</div>
-        {% endfor %}
-    </div>
+<div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.username }}
+        {{ form.password }}
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+</div>
 </body>
 </html>

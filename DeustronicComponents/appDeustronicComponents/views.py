@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -11,47 +12,30 @@ from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate, LoginForm
 
-# Cuando la variable log está a 0, el cliente (usuario) no estará logueado y será necesario que se loguee.
-# Si está a 1, ya se encontrará logueado y no tendrá que loguearse de nuevo.
-
-log = 0
-
 
 # Clase para la creación de los productos
 class ProductoCreateView(View):
 
     def get(self, request):
-        global log
-        if log == 1:
-            formulario = ProductoForm()
-            context = {'formulario': formulario}
-            return render(request, 'appDeustronicComponents/producto_create.html', context)
-        else:
-            return redirect('login')
+        formulario = ProductoForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/producto_create.html', context)
 
     def post(self, request):
-        global log
-        if log == 1:
-            formulario = ProductoForm(data=request.POST)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect(
-                    'lista_productos')
-            return render(request, 'appDeustronicComponents/producto_create.html',
-                          {'formulario': formulario})
-        else:
-            return redirect('login')
+        formulario = ProductoForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(
+                'lista_productos')
+        return render(request, 'appDeustronicComponents/producto_create.html',
+                      {'formulario': formulario})
 
 
 # Clase para la visualización de la página principal
 class IndexView(View):
 
     def get(self, request):
-        global log
-        if log == 1:
-            return render(request, 'appDeustronicComponents/index.html')
-        else:
-            return redirect('login')
+        return render(request, 'appDeustronicComponents/index.html')
 
 
 # Clase para la visualización de la lista de todos los productos
@@ -86,23 +70,15 @@ class ProductoDetailView2(DetailView):
     context_object_name = 'producto'
 
     def get_object(self, queryset=None):
-        global log
-        if log == 1:
-            nombre_producto = self.kwargs['nombre']
-            return get_object_or_404(Producto, nombre=nombre_producto)
-        else:
-            return redirect('login')
+        nombre_producto = self.kwargs['nombre']
+        return get_object_or_404(Producto, nombre=nombre_producto)
 
     def get_context_data(self, **kwargs):
-        global log
-        if log == 1:
-            context = super().get_context_data(**kwargs)
-            producto = self.get_object()
-            componentes = producto.componente.all()
-            context['componentes'] = componentes
-            return context
-        else:
-            return redirect('login')
+        context = super().get_context_data(**kwargs)
+        producto = self.get_object()
+        componentes = producto.componente.all()
+        context['componentes'] = componentes
+        return context
 
 
 # Clase para la actualización de los detalles de cierto producto
@@ -113,32 +89,24 @@ class ProductoUpdateView(UpdateView):
     success_url = reverse_lazy('lista_productos')
 
     def get(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            producto = get_object_or_404(Producto, pk=pk)
-            formulario = ProductoFormUpdate(instance=producto)
-            context = {
-                'formulario': formulario,
-                'producto': producto
-            }
-            return render(request, self.template_name, context)
-        else:
-            return redirect('login')
+        pk = self.kwargs.get('pk')
+        producto = get_object_or_404(Producto, pk=pk)
+        formulario = ProductoFormUpdate(instance=producto)
+        context = {
+            'formulario': formulario,
+            'producto': producto
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            producto = get_object_or_404(Producto, pk=pk)
-            formulario = ProductoFormUpdate(request.POST, instance=producto)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect('detalle_producto', pk=producto.pk)
-            else:
-                return render(request, self.template_name, {'formulario': formulario})
+        pk = self.kwargs.get('pk')
+        producto = get_object_or_404(Producto, pk=pk)
+        formulario = ProductoFormUpdate(request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('detalle_producto', pk=producto.pk)
         else:
-            return redirect('login')
+            return render(request, self.template_name, {'formulario': formulario})
 
 
 # Clase para la eliminación de cierto producto
@@ -153,25 +121,17 @@ class ProductoDeleteView(DeleteView):
 class ComponenteCreateView(View):
 
     def get(self, request):
-        global log
-        if log == 1:
-            formulario = ComponenteForm()
-            context = {'formulario': formulario}
-            return render(request, 'appDeustronicComponents/componente_create.html', context)
-        else:
-            return redirect('login')
+        formulario = ComponenteForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/componente_create.html', context)
 
     def post(self, request):
-        global log
-        if log == 1:
-            formulario = ComponenteForm(data=request.POST)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect(
-                    'lista_componentes')
-            return render(request, 'appDeustronicComponents/componente_create.html', {'formulario': formulario})
-        else:
-            return redirect('login')
+        formulario = ComponenteForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(
+                'lista_componentes')
+        return render(request, 'appDeustronicComponents/componente_create.html', {'formulario': formulario})
 
 
 # Clase para la visualización de la lista de todos los componentes
@@ -196,32 +156,24 @@ class ComponenteUpdateView(UpdateView):
     success_url = reverse_lazy('lista_componentes')
 
     def get(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            componente = get_object_or_404(Componente, pk=pk)
-            formulario = ComponenteFormUpdate(instance=componente)
-            context = {
-                'formulario': formulario,
-                'producto': componente
-            }
-            return render(request, self.template_name, context)
-        else:
-            return redirect('login')
+        pk = self.kwargs.get('pk')
+        componente = get_object_or_404(Componente, pk=pk)
+        formulario = ComponenteFormUpdate(instance=componente)
+        context = {
+            'formulario': formulario,
+            'producto': componente
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            componente = get_object_or_404(Componente, pk=pk)
-            formulario = ComponenteFormUpdate(request.POST, instance=componente)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect('detalle_componente', pk=componente.pk)
-            else:
-                return render(request, self.template_name, {'formulario': formulario})
+        pk = self.kwargs.get('pk')
+        componente = get_object_or_404(Componente, pk=pk)
+        formulario = ComponenteFormUpdate(request.POST, instance=componente)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('detalle_componente', pk=componente.pk)
         else:
-            return redirect('login')
+            return render(request, self.template_name, {'formulario': formulario})
 
 
 # Clase para la eliminación de cierto componente
@@ -236,25 +188,17 @@ class ComponenteDeleteView(DeleteView):
 class ClienteCreateView(View):
 
     def get(self, request):
-        global log
-        if log == 1:
-            formulario = ClienteForm()
-            context = {'formulario': formulario}
-            return render(request, 'appDeustronicComponents/cliente_create.html', context)
-        else:
-            return redirect('login')
+        formulario = ClienteForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/cliente_create.html', context)
 
     def post(self, request):
-        global log
-        if log == 1:
-            formulario = ClienteForm(data=request.POST)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect(
-                    'lista_clientes')
-            return render(request, 'appDeustronicComponents/cliente_create.html', {'formulario': formulario})
-        else:
-            return redirect('login')
+        formulario = ClienteForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(
+                'lista_clientes')
+        return render(request, 'appDeustronicComponents/cliente_create.html', {'formulario': formulario})
 
 
 # Clase para la visualización de la lista de todos los clientes
@@ -279,30 +223,24 @@ class ClienteUpdateView(UpdateView):
     success_url = reverse_lazy('lista_clientes')
 
     def get(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            cliente = get_object_or_404(Cliente, pk=pk)
-            formulario = ClienteFormUpdate(instance=cliente)
-            context = {
-                'formulario': formulario,
-                'producto': cliente
-            }
-            return render(request, self.template_name, context)
-        else:
-            return redirect('login')
+        pk = self.kwargs.get('pk')
+        cliente = get_object_or_404(Cliente, pk=pk)
+        formulario = ClienteFormUpdate(instance=cliente)
+        context = {
+            'formulario': formulario,
+            'producto': cliente
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            cliente = get_object_or_404(Cliente, pk=pk)
-            formulario = ClienteFormUpdate(request.POST, instance=cliente)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect('detalle_cliente', pk=cliente.pk)
-            else:
-                return render(request, self.template_name, {'formulario': formulario})
+        pk = self.kwargs.get('pk')
+        cliente = get_object_or_404(Cliente, pk=pk)
+        formulario = ClienteFormUpdate(request.POST, instance=cliente)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('detalle_cliente', pk=cliente.pk)
+        else:
+            return render(request, self.template_name, {'formulario': formulario})
 
 
 # Clase para la eliminación de cierto cliente
@@ -316,24 +254,16 @@ class ClienteDeleteView(DeleteView):
 # Clase para la cración de los pedidos
 class PedidoCreateView(View):
     def get(self, request):
-        global log
-        if log == 1:
-            formulario = PedidoForm()
-            context = {'formulario': formulario}
-            return render(request, 'appDeustronicComponents/pedido_create.html', context)
-        else:
-            return redirect('login')
+        formulario = PedidoForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/pedido_create.html', context)
 
     def post(self, request):
-        global log
-        if log == 1:
-            formulario = PedidoForm(data=request.POST)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect('crear_pedido_producto')
-            return render(request, 'appDeustronicComponents/pedido_create.html', {'formulario': formulario})
-        else:
-            return redirect('login')
+        formulario = PedidoForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('crear_pedido_producto')
+        return render(request, 'appDeustronicComponents/pedido_create.html', {'formulario': formulario})
 
 
 # Clase para la actualización de la información de cierto pedido
@@ -344,32 +274,24 @@ class PedidoUpdateView(UpdateView):
     success_url = reverse_lazy('lista_pedido_productos')
 
     def get(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            pedido = get_object_or_404(Pedido, pk=pk)
-            formulario = PedidoFormUpdate(instance=pedido)
-            context = {
-                'formulario': formulario,
-                'pedido': pedido
-            }
-            return render(request, self.template_name, context)
-        else:
-            return redirect('login')
+        pk = self.kwargs.get('pk')
+        pedido = get_object_or_404(Pedido, pk=pk)
+        formulario = PedidoFormUpdate(instance=pedido)
+        context = {
+            'formulario': formulario,
+            'pedido': pedido
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            pedido = get_object_or_404(Pedido, pk=pk)
-            formulario = PedidoFormUpdate(request.POST, instance=pedido)
-            if formulario.is_valid():
-                formulario.save()
-                return redirect('lista_pedido_productos')
-            else:
-                return render(request, self.template_name, {'formulario': formulario})
+        pk = self.kwargs.get('pk')
+        pedido = get_object_or_404(Pedido, pk=pk)
+        formulario = PedidoFormUpdate(request.POST, instance=pedido)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('lista_pedido_productos')
         else:
-            return redirect('login')
+            return render(request, self.template_name, {'formulario': formulario})
 
 
 # Clase para la eliminación de cierto pedido
@@ -384,32 +306,24 @@ class PedidoDeleteView(DeleteView):
 # pertenece, haciendo que haya una entrada en el modelo por cada producto en un pedido
 class PedidoProductoCreateView(View):
     def get(self, request):
-        global log
-        if log == 1:
-            formulario = PedidoProductoForm()
-            context = {'formulario': formulario}
-            return render(request, 'appDeustronicComponents/pedido_producto_create.html', context)
-        else:
-            return redirect('login')
+        formulario = PedidoProductoForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDeustronicComponents/pedido_producto_create.html', context)
 
     def post(self, request):
-        global log
-        if log == 1:
-            formulario = PedidoProductoForm(data=request.POST)
-            if formulario.is_valid():
-                pedido_producto = formulario.save()
+        formulario = PedidoProductoForm(data=request.POST)
+        if formulario.is_valid():
+            pedido_producto = formulario.save()
 
-                pedido = pedido_producto.pedido
-                productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
-                precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
+            pedido = pedido_producto.pedido
+            productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
+            precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
 
-                pedido.precio_total = precio_total_pedido
-                pedido.save()
+            pedido.precio_total = precio_total_pedido
+            pedido.save()
 
-                return redirect('lista_pedido_productos')
-            return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
-        else:
-            return redirect('login')
+            return redirect('lista_pedido_productos')
+        return render(request, 'appDeustronicComponents/pedido_producto_create.html', {'formulario': formulario})
 
 
 # Clase para la visualización de la lista de todos los pedidos
@@ -447,39 +361,31 @@ class PedidoProductoUpdateView(UpdateView):
     success_url = reverse_lazy('lista_pedido_productos')
 
     def get(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
-            formulario = PedidoProductoFormUpdate(instance=pedidoproducto)
-            context = {
-                'formulario': formulario,
-                'pedido': pedidoproducto
-            }
-            return render(request, self.template_name, context)
-        else:
-            return redirect('login')
+        pk = self.kwargs.get('pk')
+        pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
+        formulario = PedidoProductoFormUpdate(instance=pedidoproducto)
+        context = {
+            'formulario': formulario,
+            'pedido': pedidoproducto
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
-            formulario = PedidoProductoFormUpdate(request.POST, instance=pedidoproducto)
-            if formulario.is_valid():
-                pedido_producto = formulario.save()
+        pk = self.kwargs.get('pk')
+        pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
+        formulario = PedidoProductoFormUpdate(request.POST, instance=pedidoproducto)
+        if formulario.is_valid():
+            pedido_producto = formulario.save()
 
-                pedido = pedido_producto.pedido
-                productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
-                precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
+            pedido = pedido_producto.pedido
+            productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
+            precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
 
-                pedido.precio_total = precio_total_pedido
-                pedido.save()
-                return redirect('lista_pedido_productos')
-            else:
-                return render(request, self.template_name, {'formulario': formulario})
+            pedido.precio_total = precio_total_pedido
+            pedido.save()
+            return redirect('lista_pedido_productos')
         else:
-            return redirect('login')
+            return render(request, self.template_name, {'formulario': formulario})
 
 
 # Clase para la eliminación de cierto producto en cierto pedido
@@ -490,49 +396,27 @@ class PedidoProductoDeleteView(DeleteView):
     success_url = reverse_lazy('lista_pedido_productos')
 
     def post(self, request, *args, **kwargs):
-        global log
-        if log == 1:
-            pk = self.kwargs.get('pk')
-            pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
-            pedido = pedidoproducto.pedido
+        pk = self.kwargs.get('pk')
+        pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
+        pedido = pedidoproducto.pedido
 
-            pedidoproducto.delete()
+        pedidoproducto.delete()
 
-            productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
-            precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
+        productos_del_pedido = PedidoProducto.objects.filter(pedido=pedido)
+        precio_total_pedido = sum(prod.producto.precio * prod.cantidad for prod in productos_del_pedido)
 
-            pedido.precio_total = precio_total_pedido
-            pedido.save()
+        pedido.precio_total = precio_total_pedido
+        pedido.save()
 
-            return redirect('lista_pedido_productos')
-        else:
-            return redirect('login')
+        return redirect('lista_pedido_productos')
 
 
-def login_view(request):
-    global log
-    if log == 0:
-        if request.method == 'POST':
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                try:
-                    cliente = Cliente.objects.filter(username=username, password=password).first()
-                    if cliente:
-                        # Login successful
-                        log = 1
-                        return redirect('index')  # Replace 'home' with the name of your homepage view
-                    else:
-                        log = 0
-                        messages.error(request, 'Usuario o contraseña incorrectos')
-                except Cliente.DoesNotExist:
-                    messages.error(request, 'Usuario o contraseña incorrectos')
-        else:
-            form = LoginForm()
-        return render(request, 'appDeustronicComponents/login.html', {'form': form})
-    else:
-        return redirect('index')
+class LoginFormView(LoginView):
+    template_name = 'appDeustronicComponents/login.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        print(request.user)
+        return super().dispatch(request, *args, **kwargs)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
