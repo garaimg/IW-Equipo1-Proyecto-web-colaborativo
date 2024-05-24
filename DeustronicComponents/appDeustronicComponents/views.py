@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,7 +9,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, RedirectView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
@@ -17,6 +18,7 @@ from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, Pedido
 # Clase para la creación de los productos
 class ProductoCreateView(View):
 
+    @method_decorator(login_required)
     def get(self, request):
         formulario = ProductoForm()
         context = {'formulario': formulario}
@@ -33,9 +35,9 @@ class ProductoCreateView(View):
 
 
 # Clase para la visualización de la página principal
-class IndexView(LoginRequiredMixin, View):
-    redirect_field_name = 'login'
+class IndexView(View):
 
+    @method_decorator(login_required)
     def get(self, request):
         return render(request, 'appDeustronicComponents/index.html')
 
@@ -46,12 +48,20 @@ class ProductoListView(ListView):
     template_name = 'appDeustronicComponents/productos_list.html'
     context_object_name = 'productos'
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la visualización de la lista detallada de cierto producto
 class ProductoDetailView(DetailView):
     model = Producto
     template_name = 'appDeustronicComponents/producto_detail.html'
     context_object_name = 'producto'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         return Producto.objects.filter(pk=self.kwargs['pk'])
@@ -71,10 +81,12 @@ class ProductoDetailView2(DetailView):
     template_name = 'appDeustronicComponents/producto_detail.html'
     context_object_name = 'producto'
 
+    @method_decorator(login_required)
     def get_object(self, queryset=None):
         nombre_producto = self.kwargs['nombre']
         return get_object_or_404(Producto, nombre=nombre_producto)
 
+    @method_decorator(login_required)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         producto = self.get_object()
@@ -90,6 +102,7 @@ class ProductoUpdateView(UpdateView):
     template_name = 'appDeustronicComponents/producto_update.html'
     success_url = reverse_lazy('lista_productos')
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         producto = get_object_or_404(Producto, pk=pk)
@@ -118,10 +131,15 @@ class ProductoDeleteView(DeleteView):
     context_object_name = 'producto'
     success_url = reverse_lazy('lista_productos')
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la creación de los componentes
 class ComponenteCreateView(View):
 
+    @method_decorator(login_required)
     def get(self, request):
         formulario = ComponenteForm()
         context = {'formulario': formulario}
@@ -142,12 +160,20 @@ class ComponenteListView(ListView):
     template_name = 'appDeustronicComponents/componentes_list.html'
     context_object_name = 'componentes'
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la visualización de la lista detallada de cierto componente
 class ComponenteDetailView(DetailView):
     model = Componente
     template_name = 'appDeustronicComponents/componente_detail.html'
     context_object_name = 'componente'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 # Clase para la atualización de cierto componente
@@ -157,6 +183,7 @@ class ComponenteUpdateView(UpdateView):
     template_name = 'appDeustronicComponents/componente_update.html'
     success_url = reverse_lazy('lista_componentes')
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         componente = get_object_or_404(Componente, pk=pk)
@@ -185,10 +212,15 @@ class ComponenteDeleteView(DeleteView):
     context_object_name = 'componente'
     success_url = reverse_lazy('lista_componentes')
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la creación de clientes
 class ClienteCreateView(View):
 
+    @method_decorator(login_required)
     def get(self, request):
         formulario = ClienteForm()
         context = {'formulario': formulario}
@@ -209,12 +241,20 @@ class ClienteListView(ListView):
     template_name = 'appDeustronicComponents/clientes_list.html'
     context_object_name = 'clientes'
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la visualización de la lista detallada de cierto cliente
 class ClienteDetailView(DetailView):
     model = Cliente
     template_name = 'appDeustronicComponents/cliente_detail.html'
     context_object_name = 'cliente'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 # Clase para la actualización de cierto cliente
@@ -224,6 +264,7 @@ class ClienteUpdateView(UpdateView):
     template_name = 'appDeustronicComponents/cliente_update.html'
     success_url = reverse_lazy('lista_clientes')
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         cliente = get_object_or_404(Cliente, pk=pk)
@@ -252,9 +293,15 @@ class ClienteDeleteView(DeleteView):
     context_object_name = 'cliente'
     success_url = reverse_lazy('lista_clientes')
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la cración de los pedidos
 class PedidoCreateView(View):
+
+    @method_decorator(login_required)
     def get(self, request):
         formulario = PedidoForm()
         context = {'formulario': formulario}
@@ -275,6 +322,7 @@ class PedidoUpdateView(UpdateView):
     template_name = 'appDeustronicComponents/pedido_update.html'
     success_url = reverse_lazy('lista_pedido_productos')
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         pedido = get_object_or_404(Pedido, pk=pk)
@@ -303,10 +351,16 @@ class PedidoDeleteView(DeleteView):
     context_object_name = 'pedido'
     success_url = reverse_lazy('lista_pedido_productos')
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la creación del producto que compone un pedido, guardando de uno en uno el producto con el pedido al que
 # pertenece, haciendo que haya una entrada en el modelo por cada producto en un pedido
 class PedidoProductoCreateView(View):
+
+    @method_decorator(login_required)
     def get(self, request):
         formulario = PedidoProductoForm()
         context = {'formulario': formulario}
@@ -334,6 +388,10 @@ class PedidoListView(ListView):
     template_name = 'appDeustronicComponents/pedido_producto_list.html'
     context_object_name = 'pedidos'
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Clase para la visualización de la lista detallada de cierto pedido, donde se incluyen los productos que le han sido
 # añadidos
@@ -342,6 +400,7 @@ class PedidoProductoDetailView(DetailView):
     template_name = 'appDeustronicComponents/pedido_producto_detail.html'
     context_object_name = 'pedido'
 
+    @method_decorator(login_required)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pedido = self.get_object()
@@ -362,6 +421,7 @@ class PedidoProductoUpdateView(UpdateView):
     template_name = 'appDeustronicComponents/pedido_producto_update.html'
     success_url = reverse_lazy('lista_pedido_productos')
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
@@ -397,6 +457,7 @@ class PedidoProductoDeleteView(DeleteView):
     context_object_name = 'pedidoproducto'
     success_url = reverse_lazy('lista_pedido_productos')
 
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         pedidoproducto = get_object_or_404(PedidoProducto, pk=pk)
@@ -422,8 +483,18 @@ class LoginFormView(LoginView):
         return super().dispatch(request, *args, **kwargs)
 
 
+class LogoutRedirectView(RedirectView):
+    pattern_name = 'login'
+
+    def dispatch(self, request, *args, **kwargs):
+        logout(request)
+        return super().dispatch(request, *args, **kwargs)
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 class UpdatePedidoEstadoView(View):
+
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         if request.content_type == 'application/json':
             try:

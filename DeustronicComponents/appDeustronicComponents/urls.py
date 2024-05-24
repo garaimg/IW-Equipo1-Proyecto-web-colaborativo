@@ -15,18 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import ProductoCreateView, ProductoListView, ProductoDetailView, IndexView, ComponenteListView, \
-    ComponenteDetailView, ComponenteCreateView, ClienteCreateView, ProductoDeleteView, ClienteListView, \
-    ClienteDetailView, PedidoUpdateView, PedidoCreateView, ProductoUpdateView, \
-    ComponenteUpdateView, ComponenteDeleteView, ClienteUpdateView, ClienteDeleteView, PedidoDeleteView, \
-    PedidoProductoCreateView, PedidoProductoDetailView, PedidoListView, PedidoProductoUpdateView, \
-    PedidoProductoDeleteView, ProductoDetailView2, LoginFormView, UpdatePedidoEstadoView
+from .views import *
 
 # Grupo de urls para el correcto redireccionamiento de nuestro proyecto
 urlpatterns = [
     # url de la página principal
     path('', IndexView.as_view(), name='index'),
     path('login/', LoginFormView.as_view(), name='login'),
+    path('logout/', LogoutRedirectView.as_view(), name='logout'),
     # urls para la gestión de productos
     path('producto/create/', ProductoCreateView.as_view(), name='crear_producto'),
     path('producto/<str:pk>/update/', ProductoUpdateView.as_view(), name='producto_update'),

@@ -14,6 +14,10 @@
             <img src="{% static 'images/logo.jpg' %}" alt="Deustronic Components Logo">
         </a>
         <h1>Deustronic Components S.L.</h1>
+        <h3>
+            Bienvenido {{ request.user.username }}
+
+        </h3>
     </div>
 </header>
 <nav>
@@ -26,7 +30,8 @@
         <li class="separador"><a href="{% url 'crear_cliente' %}">Crear cliente</a></li>
         <li><a href="{% url 'lista_pedido_productos' %}">Pedidos</a></li>
         <li><a href="{% url 'crear_pedido' %}">Crear pedido</a></li>
-        <li><a href="{% url 'crear_pedido_producto' %}">Agregar productos al pedido</a></li>
+        <li class="separador"><a href="{% url 'crear_pedido_producto' %}">Agregar productos al pedido</a></li>
+        <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
     </ul>
 </nav>
 <div id="content">

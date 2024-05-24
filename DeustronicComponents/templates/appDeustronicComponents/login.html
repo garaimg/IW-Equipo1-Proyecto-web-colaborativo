@@ -11,28 +11,14 @@
 <div class="login-container">
     <h2>Iniciar Sesión</h2>
     <form method="post" action="{% url 'login' %}">
+        <input type="hidden" name="next" value="{{ next }}">
         {% csrf_token %}
-        {{ form.username }}
-        {{ form.password }}
+        <h2>Nombre de usuario: {{ form.username }}</h2>
+        <h2>Contraseña: {{ form.password }}</h2>
         <button type="submit">Iniciar Sesión</button>
     </form>
-    <script type="application/javascript">
-        {% if form.errors %}
-            var errors = ''
-            {% for field in form %}
-                {% for error in field.errors %}
-                    errors += '{{ error }}\n'
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                errors += '{{ error }}\n'
-            {% endfor %}
-            Swal.fire({
-                title: 'Error!',
-                text: errors,
-            })
-        {% endif %}
-    </script>
+    <p>Aún no tienes una cuenta? <a href="">Regístrate</a></p>
+    
 </div>
 </body>
 </html>
