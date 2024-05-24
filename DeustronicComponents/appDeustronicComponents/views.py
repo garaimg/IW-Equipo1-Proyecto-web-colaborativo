@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -10,7 +11,7 @@ import json
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
-    ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate, LoginForm
+    ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
 
 
 # Clase para la creación de los productos
@@ -32,7 +33,8 @@ class ProductoCreateView(View):
 
 
 # Clase para la visualización de la página principal
-class IndexView(View):
+class IndexView(LoginRequiredMixin, View):
+    redirect_field_name = 'login'
 
     def get(self, request):
         return render(request, 'appDeustronicComponents/index.html')
@@ -415,7 +417,8 @@ class LoginFormView(LoginView):
     template_name = 'appDeustronicComponents/login.html'
 
     def dispatch(self, request, *args, **kwargs):
-        print(request.user)
+        if request.user.is_authenticated:
+            return redirect('index')
         return super().dispatch(request, *args, **kwargs)
 
 
