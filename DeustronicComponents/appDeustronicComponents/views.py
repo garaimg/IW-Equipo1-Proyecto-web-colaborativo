@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
@@ -532,9 +534,10 @@ def login_view(request):
         return redirect('index')
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class UpdatePedidoEstadoView(View):
     def post(self, request, *args, **kwargs):
-        if request.is_ajax():
+        if request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
             nuevo_estado = 'completado'  # Suponiendo que siempre queremos cambiar el estado a "completado"
             pedido_id = kwargs.get('pk')
 
