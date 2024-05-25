@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/LoginRegister.css' %}">
+    <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+</head>
+<body>
+    <div class="shadow-wrap">
+        <div class="form-wrap">
+            <h3>Signup </h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">Submit</button>
+                <a class="signup-link" href="{% url "login" %}">Login</a>
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

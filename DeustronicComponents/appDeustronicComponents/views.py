@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,7 +10,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView, RedirectView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, RedirectView, CreateView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
@@ -474,21 +475,23 @@ class PedidoProductoDeleteView(DeleteView):
         return redirect('lista_pedido_productos')
 
 
-class LoginFormView(LoginView):
-    template_name = 'appDeustronicComponents/login.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('index')
-        return super().dispatch(request, *args, **kwargs)
-
-
 class LogoutRedirectView(RedirectView):
     pattern_name = 'login'
 
     def dispatch(self, request, *args, **kwargs):
         logout(request)
         return super().dispatch(request, *args, **kwargs)
+
+
+def Registro(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/signup.html", {'form': form})
 
 
 @method_decorator(csrf_exempt, name='dispatch')

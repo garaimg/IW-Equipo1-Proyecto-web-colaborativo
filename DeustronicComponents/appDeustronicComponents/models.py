@@ -10,8 +10,6 @@ class Cliente(models.Model):
     direccion = models.CharField(max_length=255)
     telefono = models.IntegerField()
     email = models.EmailField(max_length=255)
-    username = models.CharField(max_length=20, unique=True)
-    password = models.CharField(max_length=16)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

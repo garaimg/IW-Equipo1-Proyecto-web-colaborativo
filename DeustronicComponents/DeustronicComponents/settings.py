@@ -120,6 +120,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# https://www.youtube.com/watch?v=VTAHgAnKjeo
 LOGIN_REDIRECT_URL = 'index'
 
+# https://www.youtube.com/watch?v=iRmKCuz4ro0
 LOGIN_URL = 'login'
