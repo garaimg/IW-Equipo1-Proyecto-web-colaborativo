@@ -21,11 +21,11 @@ from .views import *
 urlpatterns = [
     # url de la página principal
     path('', IndexView.as_view(), name='index'),
-
     path('register/', Registro, name='register'),
-
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', LogoutRedirectView.as_view(), name='logout'),
+
+    path('mail/', Send.as_view(), name='mail'),
     # urls para la gestión de productos
     path('producto/create/', ProductoCreateView.as_view(), name='crear_producto'),
     path('producto/<str:pk>/update/', ProductoUpdateView.as_view(), name='producto_update'),

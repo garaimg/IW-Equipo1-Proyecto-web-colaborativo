@@ -1,8 +1,11 @@
+from django.conf import settings
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.views import View
 from django.utils.decorators import method_decorator
@@ -519,4 +522,28 @@ class UpdatePedidoEstadoView(View):
             return JsonResponse({'success': False, 'error': 'Invalid request'})
 
 
+class Send(View):
+    def get(self, request):
+        return render(request, 'appDeustronicComponents/mail.html')
 
+    def post(self, request):
+        email = request.POST.get('email')
+        print(email)
+
+        template = get_template('appDeustronicComponents/email-order-success.html')
+
+        # Se renderiza el template y se envias parametros
+        content = template.render({'email': email})
+
+        # Se crea el correo (titulo, mensaje, emisor, destinatario)
+        msg = EmailMultiAlternatives(
+            'Gracias por tu compra',
+            'Hola, te enviamos un correo con tu factura',
+            settings.EMAIL_HOST_USER,
+            [email]
+        )
+
+        msg.attach_alternative(content, 'text/html')
+        msg.send()
+
+        return render(request, 'appDeustronicComponents/mail.html')

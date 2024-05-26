@@ -125,3 +125,10 @@ LOGIN_REDIRECT_URL = 'index'
 
 # https://www.youtube.com/watch?v=iRmKCuz4ro0
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'garcia.ekaitz@opendeusto.es'
+EMAIL_HOST_PASSWORD = 'clbc xikc dupp oafv'
