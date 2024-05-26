@@ -399,7 +399,10 @@ class PedidoProductoDetailView(DetailView):
     template_name = 'appDeustronicComponents/pedido_producto_detail.html'
     context_object_name = 'pedido'
 
-    # @method_decorator(login_required)
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pedido = self.get_object()
