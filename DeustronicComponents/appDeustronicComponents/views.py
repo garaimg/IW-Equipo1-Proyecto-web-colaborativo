@@ -517,3 +517,6 @@ class UpdatePedidoEstadoView(View):
                 return JsonResponse({'success': False, 'error': 'Invalid JSON'})
         else:
             return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+
