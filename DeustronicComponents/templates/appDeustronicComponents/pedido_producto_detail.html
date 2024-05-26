@@ -9,7 +9,7 @@
     <p> Estado del pedido:
         {% if pedido.estado == 'completado' %}
             <span class="estado-completado">&#10004;</span>  Completado
-        {% else %}
+        {% elif pedido.estado == 'en proceso' %}
             <span class="estado-no-completado">&#10006;</span> En proceso
         {% endif %}</p>
     <h3>Productos del Pedido:</h3>

@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block titulo %}Actualizar Cliente{% endblock %}
 {% block contenido %}
-<h1>Actualizar Cliente: {{ cliente.cif }}</h1>
-<div class="contenedor-formulario">
-    <form method="post">
-        {% csrf_token %}
-        {{ formulario.as_p }}
-        <button type="submit">Guardar Cambios</button>
-    </form>
-</div>
+    <h1>Actualizar Cliente: {{ cliente.cif }}</h1>
+    <div class="contenedor-formulario">
+        <form method="post">
+            {% csrf_token %}
+            {{ formulario.as_p }}
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>
 {% endblock %}

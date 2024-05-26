@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 {% block titulo %}Lista de Productos del Pedido{% endblock %}
 {% block contenido %}
-<h2 class="izq">Lista de Productos del Pedido</h2>
-<ul class="lista">
-    {% for pedido in pedidos %}
-    <li id="pedido-{{ pedido.pk }}">
-        <a href="{% url 'detalle_pedido_producto' pedido.pk %}">Pedido: {{ pedido.cod_ref_ped }}</a>
-        {% if pedido.estado == 'completado' %}
-        <span class="estado-completado">&#10004;</span>
-        {% elif pedido.estado == 'en proceso' %}
-        <button class="btn-completar" data-id="{{ pedido.pk }}" data-url="{% url 'update_pedido_estado' pedido.pk %}">Completar Pedido</button>
-        {% endif %}
-    </li>
-    <ul>
-        <li><a href="{% url 'actualizar_pedido' pk=pedido.pk %}">Actualizar Pedido</a></li>
-        <li><a href="{% url 'eliminar_pedido' pk=pedido.pk %}">Eliminar Pedido</a></li>
+    <h2 class="izq">Lista de Productos del Pedido</h2>
+    <ul class="lista">
+        {% for pedido in pedidos %}
+            <li id="pedido-{{ pedido.pk }}">
+                <a href="{% url 'detalle_pedido_producto' pedido.pk %}">Pedido: {{ pedido.cod_ref_ped }}</a>
+                {% if pedido.estado == 'completado' %}
+                    <span class="estado-completado">&#10004;</span>
+                {% elif pedido.estado == 'en proceso' %}
+                    <button class="btn-completar" data-id="{{ pedido.pk }}"
+                            data-url="{% url 'update_pedido_estado' pedido.pk %}">Completar Pedido
+                    </button>
+                {% endif %}
+            </li>
+            <ul>
+                <li><a href="{% url 'actualizar_pedido' pk=pedido.pk %}">Actualizar Pedido</a></li>
+                <li><a href="{% url 'eliminar_pedido' pk=pedido.pk %}">Eliminar Pedido</a></li>
+            </ul>
+        {% empty %}
+            <li>No hay pedidos con productos.</li>
+        {% endfor %}
     </ul>
-    {% empty %}
-    <li>No hay pedidos con productos.</li>
-    {% endfor %}
-</ul>
 {% endblock %}
 

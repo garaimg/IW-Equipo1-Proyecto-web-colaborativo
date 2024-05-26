@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block titulo %}Clientes - Deustronic Components S.L.{% endblock %}
 {% block contenido %}
-<h2 class="izq">Listado de Clientes</h2>
-<ul class="lista">
-    {% for cliente in clientes %}
-    <li><a href="{% url 'detalle_cliente' cliente.pk %}">{{ cliente.nombre_empresa }}</a></li>
-    <ul>
-        <li><a href="{% url 'actualizar_cliente' cliente.pk %}">Actualizar cliente</a></li>
-        <li><a href="{% url 'eliminar_cliente' pk=cliente.pk %}">Eliminar cliente</a></li>
+    <h2 class="izq">Listado de Clientes</h2>
+    <ul class="lista">
+        {% for cliente in clientes %}
+            <li><a href="{% url 'detalle_cliente' cliente.pk %}">{{ cliente.nombre_empresa }}</a></li>
+            <ul>
+                <li><a href="{% url 'actualizar_cliente' cliente.pk %}">Actualizar cliente</a></li>
+                <li><a href="{% url 'eliminar_cliente' pk=cliente.pk %}">Eliminar cliente</a></li>
+            </ul>
+        {% empty %}
+            <li>No hay clientes disponibles</li>
+        {% endfor %}
     </ul>
-    {% empty %}
-    <li>No hay clientes disponibles</li>
-    {% endfor %}
-</ul>
 {% endblock %}

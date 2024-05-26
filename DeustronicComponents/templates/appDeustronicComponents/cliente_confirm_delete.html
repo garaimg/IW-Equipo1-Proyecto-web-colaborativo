@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block titulo %}Confirmar Eliminación del Cliente - Deustronic Components S.L.{% endblock %}
 {% block contenido %}
-<h2>¿Estás seguro de que deseas eliminar el cliente "{{ cliente.nombre_empresa }}"?</h2>
-<div class="contenedor-formulario">
-    <form method="post">
-        {% csrf_token %}
-        <input type="submit" value="Eliminar">
-    </form>
-</div>
+    <h2>¿Estás seguro de que deseas eliminar el cliente "{{ cliente.nombre_empresa }}"?</h2>
+    <div class="contenedor-formulario">
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Eliminar">
+        </form>
+    </div>
 {% endblock %}

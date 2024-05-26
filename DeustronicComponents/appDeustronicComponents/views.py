@@ -1,8 +1,6 @@
-from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -10,7 +8,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView, RedirectView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, RedirectView
 from .models import Producto, Componente, Cliente, Pedido, PedidoProducto
 from .forms import ProductoForm, ComponenteForm, ClienteForm, PedidoForm, PedidoFormUpdate, ProductoFormUpdate, \
     ComponenteFormUpdate, ClienteFormUpdate, PedidoProductoForm, PedidoProductoFormUpdate
@@ -401,7 +399,7 @@ class PedidoProductoDetailView(DetailView):
     template_name = 'appDeustronicComponents/pedido_producto_detail.html'
     context_object_name = 'pedido'
 
-    @method_decorator(login_required)
+    # @method_decorator(login_required)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pedido = self.get_object()
