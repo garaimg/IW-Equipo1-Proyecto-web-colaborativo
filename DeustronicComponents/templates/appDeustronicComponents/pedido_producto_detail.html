@@ -1,28 +1,32 @@
 {% extends 'base.html' %}
 {% block titulo %}Detalle del Pedido: {{ pedido.cod_ref_ped }}{% endblock %}
 {% block contenido %}
-    <h1>Detalle del Pedido: {{ pedido.cod_ref_ped }}</h1>
-    <p>Código de referencia: {{ pedido.cod_ref_ped }}</p>
-    <p>Fecha: {{ pedido.fecha }}</p>
-    <p>Cliente: {{ pedido.cliente }}</p>
-    <p>Precio Total: {{ pedido.precio_total }}</p>
-    <p> Estado del pedido:
-        {% if pedido.estado == 'completado' %}
-            <span class="estado-completado">&#10004;</span>  Completado
-        {% elif pedido.estado == 'en proceso' %}
-            <span class="estado-no-completado">&#10006;</span> En proceso
-        {% endif %}</p>
-    <h3>Productos del Pedido:</h3>
-    <ul>
-        {% for pedido_producto in productos_del_pedido %}
-            <li>
-                <a href="{% url 'detalle_producto2' nombre=pedido_producto.producto %}">{{ pedido_producto.producto }}</a>
-                - Cantidad: {{ pedido_producto.cantidad }}
-                <a href="{% url 'actualizar_pedido_producto' pk=pedido_producto.pk %}">Actualizar Producto</a>
-                <a href="{% url 'eliminar_pedido_producto' pk=pedido_producto.pk %}">Eliminar Producto</a>
-            </li>
-        {% empty %}
-            <li>No hay productos asociados a este pedido.</li>
-        {% endfor %}
-    </ul>
+<h1>Detalle del Pedido: {{ pedido.cod_ref_ped }}</h1>
+<p>Código de referencia: {{ pedido.cod_ref_ped }}</p>
+<p>Fecha: {{ pedido.fecha }}</p>
+<p>Cliente: {{ pedido.cliente }}</p>
+<p>Precio Total: </p>
+<p id="precioSinDescuento">{{ pedido.precio_total }}</p>
+<button id="aplicarDescuentoBtn">Aplicar Descuento Rebajas Primavera (20%)</button>
+<p id="precioConDescuento"> </p>
+<p> Estado del pedido:
+    {% if pedido.estado == 'completado' %}
+    <span class="estado-completado">&#10004;</span> Completado
+    {% elif pedido.estado == 'en proceso' %}
+    <span class="estado-no-completado">&#10006;</span> En proceso
+    {% endif %}</p>
+<h3>Productos del Pedido:</h3>
+<ul>
+    {% for pedido_producto in productos_del_pedido %}
+    <li>
+        <a href="{% url 'detalle_producto2' nombre=pedido_producto.producto %}">{{ pedido_producto.producto }}</a>
+        - Cantidad: {{ pedido_producto.cantidad }}
+        <a href="{% url 'actualizar_pedido_producto' pk=pedido_producto.pk %}">Actualizar Producto</a>
+        <a href="{% url 'eliminar_pedido_producto' pk=pedido_producto.pk %}">Eliminar Producto</a>
+    </li>
+    {% empty %}
+    <li>No hay productos asociados a este pedido.</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

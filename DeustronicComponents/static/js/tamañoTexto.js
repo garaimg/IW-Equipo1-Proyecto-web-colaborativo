@@ -22,5 +22,4 @@ function disminuirTamano() {
     document.documentElement.style.fontSize = `${newFontSize}px`;
 }
 
-//________________________________________________________________________________________
 

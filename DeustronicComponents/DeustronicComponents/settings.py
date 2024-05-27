@@ -132,3 +132,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'garcia.ekaitz@opendeusto.es'
 EMAIL_HOST_PASSWORD = 'clbc xikc dupp oafv'
+
+

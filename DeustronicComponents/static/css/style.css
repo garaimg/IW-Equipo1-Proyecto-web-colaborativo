@@ -311,3 +311,10 @@ footer {
     margin: 0;
     padding: 10px;
 }
+
+
+/* Rebajas */
+#precioConDescuento{
+    color: #bd0909;
+    font-weight: bold;
+}
