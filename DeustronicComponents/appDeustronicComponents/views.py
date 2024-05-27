@@ -524,12 +524,12 @@ class UpdatePedidoEstadoView(View):
 
 
 class Send(View):
+    @method_decorator(login_required)
     def get(self, request):
         return render(request, 'appDeustronicComponents/mail.html')
 
     def post(self, request):
         email = request.POST.get('email')
-        print(email)
 
         template = get_template('appDeustronicComponents/email-order-success.html')
 
