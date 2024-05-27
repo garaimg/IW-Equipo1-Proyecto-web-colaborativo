@@ -14,6 +14,8 @@
             <img src="{% static 'images/logo.jpg' %}" alt="Deustronic Components Logo">
         </a>
         <h1>Deustronic Components S.L.</h1>
+    </div>
+    <div class="Bienvenida">
         <h3>
             Bienvenido {{ request.user.username }}
 
@@ -48,7 +50,7 @@
 <footer>
     &copy; 2024 Deustronic Components S.L. | Todos los derechos reservados
     <br>
-    <a href="{% url 'mail' %}">¿Quieres suscribirte a la newsletter de Deustronic Components?</a>
+    <a href="{% url 'mail' %}" class="newsletter">¿Quieres suscribirte a la newsletter de Deustronic Components?</a>
 </footer>
 <script src="{% static 'js/tamañoTexto.js' %}"></script>
 <script src="{% static 'js/expandirInfo.js' %}"></script>

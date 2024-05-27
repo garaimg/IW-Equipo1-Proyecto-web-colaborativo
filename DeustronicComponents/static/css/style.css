@@ -44,14 +44,17 @@ header {
     padding: 20px;
     color: #fff;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
-    justify-content: center;
 }
 
 .logo-container {
+    margin-left: 30rem;
     display: flex;
-    justify-content: left;
     align-items: center;
+    justify-content: center;
+    flex-grow: 1;
 }
 
 .logo-container img {
@@ -68,8 +71,17 @@ header {
     }
 }
 
+.logo-container h1 {
+    margin: 0;
+}
+
 .Bienvenida {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    flex-grow: 1;
+    margin-left: auto;
 }
 
 /* barra nav */
@@ -274,6 +286,10 @@ footer {
         color: white;
         background-color: rgb(9, 64, 118);
     }
+}
+
+.newsletter:hover {
+    color: white;
 }
 
 /* Contenedor expansible */
