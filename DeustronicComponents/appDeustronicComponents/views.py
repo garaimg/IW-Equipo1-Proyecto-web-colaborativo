@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -545,5 +546,7 @@ class Send(View):
 
         msg.attach_alternative(content, 'text/html')
         msg.send()
+
+        messages.success(request, 'Te has suscrito a la newsletter correctamente')
 
         return render(request, 'appDeustronicComponents/mail.html')
