@@ -13,25 +13,4 @@
     <li>No hay productos disponibles.</li>
     {% endfor %}
 </ul>
-
-{% for producto in productos %}
-<li>
-    <a href="{% url 'detalle_producto' producto.pk %}">{{ producto.nombre }}</a>
-    <button id="detalles-{{ producto.pk }}">Detalles</button>
-    <ul id="detalles-contenido-{{ producto.pk }}" style="display: none;">
-        <li><strong>Código de referencia:</strong> {{ producto.cod_ref_prod }}</li>
-        <li><strong>Nombre:</strong> {{ producto.nombre }}</li>
-        <li><strong>Precio:</strong> {{ producto.precio }}</li>
-        <li><strong>Descripción:</strong> {{ producto.descripcion }}</li>
-        <li><strong>Categoría:</strong> {{ producto.categoria }}</li>
-        <li><strong>Componentes:</strong></li>
-        <ul>
-            {% for componente in producto.componente.all %}
-            <li><a href="{% url 'detalle_componente' componente.pk %}">{{ componente.marca }}
-                - {{ componente.modelo }}</a></li>
-            {% endfor %}
-        </ul>
-    </ul>
-</li>
-{% endfor %}
 {% endblock %}
