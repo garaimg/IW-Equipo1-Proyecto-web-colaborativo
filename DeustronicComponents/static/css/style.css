@@ -68,6 +68,10 @@ header {
     }
 }
 
+.Bienvenida {
+    display: block;
+}
+
 /* barra nav */
 
 nav {

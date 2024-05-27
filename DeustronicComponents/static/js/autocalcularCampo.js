@@ -1,13 +1,22 @@
-// Funcionalidad de autocalcular un campo. Aplica un descuento a los pedidos al clickar un botón.
+// Funcionalidad de autocalcular un campo desde un formulario. Aplica un descuento a los pedidos al clickar un botón.
 
-let aplicarDescuentoBtn = document.getElementById('aplicarDescuentoBtn');
-let precioTotalElement = document.getElementById('precioSinDescuento');
-let precioDescuentoElement = document.getElementById('precioConDescuento');
+const descuentoForm = document.getElementById('descuentoForm');
+const codigoDescuentoInput = document.getElementById('codigoDescuento');
+const precioTotalElement = document.getElementById('precioSinDescuento');
+const precioDescuentoElement = document.getElementById('precioConDescuento');
 
-aplicarDescuentoBtn.addEventListener('click', () => {
-    let precioTotal = parseFloat(precioTotalElement.textContent);
-    let descuento = precioTotal * 0.2; //20% de descuento por rebajas de primavera
-    let precioDescuento = precioTotal - descuento;
+descuentoForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-    precioDescuentoElement.textContent = `Precio Total con Descuento: ${precioDescuento} €`;
+    const codigoDescuento = codigoDescuentoInput.value.toUpperCase();
+
+    if (codigoDescuento === 'PRIMAVERA24') {
+        let precioTotal = parseFloat(precioTotalElement.textContent);
+        let descuento = precioTotal * 0.2;
+        let precioDescuento = precioTotal - descuento;
+
+        precioDescuentoElement.textContent = `Precio Total con Descuento: ${precioDescuento.toFixed(2)} €`;
+    } else {
+        alert('Código de descuento incorrecto.');
+    }
 });

@@ -1,9 +1,9 @@
 /*
-(1p) Capturar un evento en el DOM y producir un cambio en el estilo/contenido de
+Capturar un evento en el DOM y producir un cambio en el estilo/contenido de
 la página (mostrar/ocultar un bloque al hacer click en “expandir información”).
 */
 
-const botonExpandir = document.getElementsByClassName('botonExpandir')[0];
+const botonExpandir = document.querySelector('.botonExpandir');
 const contExp = document.getElementsByClassName('contenedorExpandible')[0];
 
 function mostrarOcultarBloque(estado) {

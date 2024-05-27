@@ -7,7 +7,11 @@
 <p>Cliente: {{ pedido.cliente }}</p>
 <p>Precio Total: </p>
 <p id="precioSinDescuento">{{ pedido.precio_total }}</p>
-<button id="aplicarDescuentoBtn">Aplicar Descuento Rebajas Primavera (20%)</button>
+<form id="descuentoForm">
+    <label for="codigoDescuento">Código de descuento:</label>
+    <input type="text" id="codigoDescuento" name="codigoDescuento" required placeholder="Prueba con el código PRIMAVERA24">
+    <button type="submit">Aplicar Descuento</button>
+</form>
 <p id="precioConDescuento"> </p>
 <p> Estado del pedido:
     {% if pedido.estado == 'completado' %}
@@ -28,5 +32,6 @@
     <li>No hay productos asociados a este pedido.</li>
     {% endfor %}
 </ul>
-
+<script src="/static/js/autocalcularCampo.js"></script>
 {% endblock %}
+
