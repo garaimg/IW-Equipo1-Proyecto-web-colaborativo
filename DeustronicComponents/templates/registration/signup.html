@@ -1,14 +1,14 @@
 {% load static %}
 <html lang="es">
 <head>
-    <title>Iniciar Sesión</title>
+    <title>Registrarse</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/LoginRegister.css' %}">
     <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
 </head>
 <body>
 <div class="shadow-wrap">
     <div class="form-wrap">
-        <h3>Signup </h3>
+        <h3>Registrarse </h3>
         <form method="POST">
             {% csrf_token %}
             {{ form }}
