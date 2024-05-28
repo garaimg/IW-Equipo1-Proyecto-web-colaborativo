@@ -6,7 +6,7 @@
 
     https://github.com/garaimg/IW-Equipo1-Proyecto-web-colaborativo
 
-○ Funcionalidades:
+○ Funcionalidades principales:
 
     - Gestión de productos: creación, visualización (listado y detalle), actualización y baja.
     - Gestión de pedidos: creación, visualización (listado y detalle), actualización y baja.
@@ -19,6 +19,8 @@
     - ALUD Ingeniería Web
     - W3 Schools (https://www.w3schools.com/django/index.php)
     - Documentación oficial de Django (https://docs.djangoproject.com/)
+    - Repositorio github de jon vadillo (https://github.com/jvadillo/curso-django-paso-a-paso)
+    - ED Team (https://ed.team/blog/como-aumentar-y-disminuir-el-tamano-de-fuente-con-variables-css-y-javascript)
     - Conocimientos propios
 
 ○ Documentación adicional:
