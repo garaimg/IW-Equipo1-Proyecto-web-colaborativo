@@ -21,7 +21,7 @@
             <span class="estado-no-completado">&#10006;</span> En proceso
         {% endif %}</p>
     <h3>Productos del Pedido:</h3>
-    <ul>
+    <ul class="lista">
         {% for pedido_producto in productos_del_pedido %}
             <li>
                 <a href="{% url 'detalle_producto2' nombre=pedido_producto.producto %}">{{ pedido_producto.producto }}</a>
