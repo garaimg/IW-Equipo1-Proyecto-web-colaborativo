@@ -85,11 +85,13 @@ class ProductoDetailView2(DetailView):
     context_object_name = 'producto'
 
     @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get_object(self, queryset=None):
         nombre_producto = self.kwargs['nombre']
         return get_object_or_404(Producto, nombre=nombre_producto)
 
-    @method_decorator(login_required)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         producto = self.get_object()
